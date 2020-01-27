@@ -1,0 +1,48 @@
+<h1>Création d'un héro</h1>
+
+<h2>Héro : {{ heroForm.value.name }}</h2>
+<form [formGroup]="heroForm">
+  <label>
+    Nom :
+    <input type="text" required formControlName="name" />
+  </label>
+  <p class="error-message" *ngIf="heroForm.get('name').hasError('minLength')">Le nom doit comporter 3 caractères.</p>
+  <p class="error-message" *ngIf="heroForm.get('name').hasError('required')">Un nom est requis.</p>
+  <label>
+    Agilité :
+    <input type="number" required formControlName="agility" />
+    <p class="error-message" *ngIf="heroForm.get('agility').hasError('required')">Une valeur est requise.</p>
+    <p class="error-message" *ngIf="heroForm.get('agility').hasError('min')">La valeur minimale est 0.</p>
+    <p class="error-message" *ngIf="heroForm.get('agility').hasError('max')">La valeur maximale est 40.</p>
+  </label>
+  <label>
+    Attaque :
+    <input type="number" required formControlName="attack" />
+    <p class="error-message" *ngIf="heroForm.get('attack').hasError('required')">Une valeur est requise.</p>
+    <p class="error-message" *ngIf="heroForm.get('attack').hasError('min')">La valeur minimale est 0.</p>
+    <p class="error-message" *ngIf="heroForm.get('attack').hasError('max')">La valeur maximale est 40.</p>
+
+
+  </label>
+  <label>
+    Vie :
+    <input type="number" required formControlName="health" />
+    <p class="error-message" *ngIf="heroForm.get('health').hasError('required')">Une valeur est requise.</p>
+    <p class="error-message" *ngIf="heroForm.get('health').hasError('min')">La valeur minimale est 0.</p>
+    <p class="error-message" *ngIf="heroForm.get('health').hasError('max')">La valeur maximale est 40.</p>
+
+
+  </label>
+  <label>
+    Force :
+    <input type="number" required formControlName="strength" />
+    <p class="error-message" *ngIf="heroForm.get('strength').hasError('required')">Une valeur est requise.</p>
+    <p class="error-message" *ngIf="heroForm.get('strength').hasError('min')">La valeur minimale est 0.</p>
+    <p class="error-message" *ngIf="heroForm.get('strength').hasError('max')">La valeur maximale est 40.</p>
+
+  </label>
+
+  <p class="error-message" *ngIf="heroForm.hasError('abilityValidator')">La somme des aptitudes doivent être inférieur à 40.</p>
+
+  <button class="btn btn-success" (click)="submitForm()" [disabled]="!heroForm.valid">Créer</button>
+</form>
