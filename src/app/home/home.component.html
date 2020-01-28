@@ -1,7 +1,8 @@
-<h1>Dashboard</h1>
-<h2>Heros les plus marquants :</h2>
-<ul class="heroes">
-  <li *ngFor="let hero of betterHeroes" (click)="goToEditHero(hero)">
-    <span class="badge">{{ hero.id }}</span> {{ hero.name }}
-  </li>
-</ul>
+<div class="container mt-4">
+  <h1>Heros les plus marquants :</h1>
+  <mat-list role="list">
+    <mat-list-item *ngFor="let hero of betterHeroes | async; let i = index;" role="listitem" (click)="goToEditHero(hero)">
+      {{ i }} > {{ hero.name }} - {{ hero.getTotalAbilityPoints() }} points
+    </mat-list-item>
+  </mat-list>
+</div>

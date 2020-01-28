@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Hero } from '../dto/heroes';
 import { HeroService } from '../hero.service';
 import { Router } from '@angular/router';
+import {Observable} from 'rxjs';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  betterHeroes: Hero[];
+  betterHeroes: Observable<Hero[]>;
   constructor(
     private readonly heroService: HeroService,
     private readonly router: Router

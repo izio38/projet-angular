@@ -9,11 +9,26 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { NavItemComponent } from './header/nav-item/nav-item.component';
 import { HeroService } from './hero.service';
-import { EditHeroComponent } from './edit-hero/edit-hero.component';
+import { EditHeroComponent } from './heroes/edit-hero/edit-hero.component';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { CreateHeroComponent } from './create-hero/create-hero.component';
+import { CreateHeroComponent } from './heroes/create-hero/create-hero.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavigationBarComponent } from './core/navigation-bar/navigation-bar.component';
+import { SideNavComponent } from './core/side-nav/side-nav.component';
+import {HeroFormComponent} from './heroes/form/hero-form.component';
+import {
+  MatButtonModule, MatCardModule,
+  MatExpansionModule,
+  MatIconModule,
+  MatListModule,
+  MatMenuModule,
+  MatSidenavModule,
+  MatToolbarModule
+} from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 @NgModule({
   declarations: [
@@ -24,6 +39,9 @@ import { CreateHeroComponent } from './create-hero/create-hero.component';
     NavItemComponent,
     EditHeroComponent,
     CreateHeroComponent,
+    HeroFormComponent,
+    NavigationBarComponent,
+    SideNavComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +50,16 @@ import { CreateHeroComponent } from './create-hero/create-hero.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatButtonModule,
+    MatIconModule,
+    FlexLayoutModule,
+    MatMenuModule,
+    MatExpansionModule,
+    MatCardModule
   ],
   providers: [HeroService],
   bootstrap: [AppComponent],

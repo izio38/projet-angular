@@ -1,0 +1,27 @@
+$nav-list-icon-padding: 12px !default;
+$toolbar-title-padding: 32px !default;
+
+.list-item-active {
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.nav-list-icon {
+  margin: 0 $nav-list-icon-padding 0 $nav-list-icon-padding;
+}
+
+.toolbar-title {
+  margin: 0 $toolbar-title-padding 0 $toolbar-title-padding;
+}
+
+mat-sidenav-container {
+  position: fixed;
+  height: 100%;
+  min-height: 100%;
+  width: 100%;
+  min-width: 100%;
+}
+
+mat-toolbar-row > h2 {
+  color: white;
+}

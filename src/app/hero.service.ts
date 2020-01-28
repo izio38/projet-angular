@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Hero, HeroAbilities} from './dto/heroes';
-import { HEROES } from './heroes.mock';
+import {HEROES} from './heroes.mock';
 import {AngularFirestore, DocumentChangeAction} from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -10,30 +10,34 @@ import {Observable} from 'rxjs';
 })
 export class HeroService {
   heroes: Hero[] = HEROES;
-  constructor(private readonly db: AngularFirestore) {}
 
-  getHeroes(): Observable<any> {
+  constructor(private readonly db: AngularFirestore) {
+  }
+
+  getHeroes(): Observable<Hero[]> {
     return this.db.collection('heroes').snapshotChanges().pipe(
       map(heroes => {
         return heroes.map((hero: any) => {
-          console.log(hero )
-          const data = hero.payload.data();
-          const id = hero.payload.id;
+          const data = hero.payload.doc.data();
+          const id = hero.payload.doc.id;
+          return new Hero(id, data.name, {
+            health: data.health,
+            strength: data.strength,
+            agility: data.agility,
+            attack: data.attack
+          });
         });
       })
     );
-
-    // return this.db.collection('heroes').valueChanges();
   }
 
-  getNBetterHeroes(n: number) {
+  getNBetterHeroes(n: number): Observable<Hero[]> {
     return (
-      this.heroes
-        // Deep copy
-        .slice(0, this.heroes.length)
-        .sort((a, b) => b.getTotalAbilityPoints() - a.getTotalAbilityPoints())
-        // Get the n first
-        .slice(0, n)
+      this.getHeroes().pipe(
+        map(heroes => heroes.sort((a, b) => b.getTotalAbilityPoints() - a.getTotalAbilityPoints())
+          // Get the n first
+          .slice(0, n))
+      )
     );
   }
 
@@ -43,9 +47,9 @@ export class HeroService {
 
   bulkDelete() {
     return this.db.collection('heroes').get().subscribe((observer) => {
-        observer.forEach(async (hero) => {
-          await this.db.collection('heroes').doc(hero.id).delete();
-        });
+      observer.forEach(async (hero) => {
+        await this.db.collection('heroes').doc(hero.id).delete();
+      });
     });
   }
 }

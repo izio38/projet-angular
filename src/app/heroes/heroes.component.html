@@ -1,21 +1,22 @@
-<h1>Liste des heros</h1>
-<button [routerLink]="'/hero/create'" class="btn btn-success">Nouveau</button>
-<button class="btn btn-danger" (click)="bulkDelete()">Tout supprimer</button>
-<ul class="heroes">
-  <li
-    *ngFor="let hero of heroes | async "
-    (click)="onSelect(hero)"
-    [class.selected]="hero === selectedHero"
-  >
-    <span class="badge">{{ hero.id }}</span> {{ hero.name }}
-  </li>
-</ul>
+<div class="container mt-4">
+  <h1>Liste des heros</h1>
+  <div class="mb-4 mt-4">
+    <button [routerLink]="'/hero/create'" class="mr-2" mat-raised-button color="accent">Nouveau</button>
+    <button (click)="bulkDelete()" mat-raised-button color="warn">Tout supprimer</button>
+  </div>
+  <mat-list role="list">
+    <mat-list-item *ngFor="let hero of heroes | async; let i = index;" role="listitem" (click)="onSelect(hero)" [class.selected]="hero === selectedHero">
+      {{ i }} > {{ hero.name }} - {{ hero.getTotalAbilityPoints() }} points
+    </mat-list-item>
+  </mat-list>
 
-<div *ngIf="selectedHero">
-  <h2>{{ selectedHero.name | uppercase }} Details</h2>
-  <label
+  <div *ngIf="selectedHero">
+    <h2>{{ selectedHero.name | uppercase }} Details</h2>
+    <label
     >name:
-    <input [(ngModel)]="selectedHero.name" placeholder="name" />
-  </label>
-  <p>id: {{ selectedHero.id }}</p>
+      <input [(ngModel)]="selectedHero.name" placeholder="name" />
+    </label>
+    <p>id: {{ selectedHero.id }}</p>
+  </div>
+
 </div>

@@ -18,7 +18,7 @@ export class HeroesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.heroService.getHeroes().subscribe(console.log);
+    this.heroes = this.heroService.getHeroes();
     // this.heroes = this.heroService.getHeroes().pipe(
     //   map(heroes => heroes.map((hero) => new Hero(hero.payload.doc.id, hero.name, {
     //     attack: hero.attack,
