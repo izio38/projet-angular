@@ -5,18 +5,8 @@
     <button (click)="bulkDelete()" mat-raised-button color="warn">Tout supprimer</button>
   </div>
   <mat-list role="list">
-    <mat-list-item *ngFor="let hero of heroes | async; let i = index;" role="listitem" (click)="onSelect(hero)" [class.selected]="hero === selectedHero">
+    <mat-list-item *ngFor="let hero of heroes | async; let i = index;" role="listitem" (click)="goToEditHero(hero)" [class.selected]="hero === selectedHero">
       {{ i }} > {{ hero.name }} - {{ hero.getTotalAbilityPoints() }} points
     </mat-list-item>
   </mat-list>
-
-  <div *ngIf="selectedHero">
-    <h2>{{ selectedHero.name | uppercase }} Details</h2>
-    <label
-    >name:
-      <input [(ngModel)]="selectedHero.name" placeholder="name" />
-    </label>
-    <p>id: {{ selectedHero.id }}</p>
-  </div>
-
 </div>

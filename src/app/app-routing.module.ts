@@ -8,7 +8,7 @@ import { CreateHeroComponent } from './heroes/create-hero/create-hero.component'
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'heroes', component: HeroesComponent },
-  { path: 'hero/edit/?id', component: EditHeroComponent },
+  { path: 'hero/edit', component: EditHeroComponent },
   { path: 'hero/create', component: CreateHeroComponent },
   { path: '**', component: HomeComponent },
 ];

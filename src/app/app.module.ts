@@ -27,6 +27,9 @@ import {
   MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 
@@ -59,7 +62,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FlexLayoutModule,
     MatMenuModule,
     MatExpansionModule,
-    MatCardModule
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [HeroService],
   bootstrap: [AppComponent],

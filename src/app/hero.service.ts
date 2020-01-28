@@ -52,4 +52,15 @@ export class HeroService {
       });
     });
   }
+
+  getFromId(id: string): Observable<Hero> {
+    return this.db.collection('heroes').doc(id).snapshotChanges().pipe(
+      map(hero => {
+        const data = hero.payload.data() as any;
+        const heroId = hero.payload.id;
+
+        return new Hero(heroId, data.name, {strength: data.strength, health: data.health, attack: data.attack, agility: data.agility});
+      })
+    );
+  }
 }

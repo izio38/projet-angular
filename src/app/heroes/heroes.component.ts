@@ -4,6 +4,7 @@ import {HEROES} from '../heroes.mock';
 import {HeroService} from '../hero.service';
 import {Observable, observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-heroes',
@@ -12,28 +13,21 @@ import {map} from 'rxjs/operators';
 })
 export class HeroesComponent implements OnInit {
   heroes: Observable<Hero[]>;
-  private selectedHero: Hero = null;
 
-  constructor(private readonly heroService: HeroService) {
+  constructor(private readonly heroService: HeroService, private router: Router) {
   }
 
   ngOnInit() {
     this.heroes = this.heroService.getHeroes();
-    // this.heroes = this.heroService.getHeroes().pipe(
-    //   map(heroes => heroes.map((hero) => new Hero(hero.payload.doc.id, hero.name, {
-    //     attack: hero.attack,
-    //     agility: hero.agility,
-    //     strength: hero.strength,
-    //     health: hero.health
-    //   })))
-    // );
-  }
-
-  onSelect(hero: Hero) {
-    this.selectedHero = hero;
   }
 
   bulkDelete() {
     this.heroService.bulkDelete();
+  }
+
+  async goToEditHero(hero: Hero) {
+    await this.router.navigate(['/hero/edit'], {
+      queryParams: { id: hero.id },
+    });
   }
 }
