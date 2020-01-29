@@ -25,10 +25,10 @@ export class HeroFormComponent implements OnInit {
       this.heroForm = new FormGroup(
         {
           name: new FormControl('', [Validators.minLength(3)]),
-          agility: new FormControl(0, [Validators.min(0), Validators.max(40)]),
-          attack: new FormControl(0, [Validators.min(0), Validators.max(40)]),
-          health: new FormControl(0, [Validators.min(0), Validators.max(40)]),
-          strength: new FormControl(0, [Validators.min(0), Validators.max(40)]),
+          agility: new FormControl(1, [Validators.min(1), Validators.max(40)]),
+          attack: new FormControl(1, [Validators.min(1), Validators.max(40)]),
+          health: new FormControl(1, [Validators.min(1), Validators.max(40)]),
+          strength: new FormControl(1, [Validators.min(1), Validators.max(40)]),
         },
         {validators: abilityValidator}
       );
