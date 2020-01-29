@@ -5,6 +5,7 @@ import {HeroService} from '../hero.service';
 import {Observable, observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-heroes',
@@ -14,7 +15,7 @@ import {Router} from '@angular/router';
 export class HeroesComponent implements OnInit {
   heroes: Observable<Hero[]>;
 
-  constructor(private readonly heroService: HeroService, private router: Router) {
+  constructor(private readonly heroService: HeroService, private router: Router, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -29,5 +30,10 @@ export class HeroesComponent implements OnInit {
     await this.router.navigate(['/hero/edit'], {
       queryParams: { id: hero.id },
     });
+  }
+
+  async deleteHero(hero: Hero) {
+    await this.heroService.delete(hero);
+    this.snackBar.open("Supprimé avec succès", null, {duration: 1000 * 3, panelClass: ['snackbar-success']})
   }
 }

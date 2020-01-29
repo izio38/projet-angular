@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, ParamMap} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Hero} from '../../dto/heroes';
 import {switchMap} from 'rxjs/operators';
 import {HeroService} from '../../hero.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-edit-hero',
@@ -14,7 +15,8 @@ export class EditHeroComponent implements OnInit {
   hero$: Observable<Hero>;
   hero: Hero;
 
-  constructor(private route: ActivatedRoute, private heroService: HeroService) {}
+  constructor(private route: ActivatedRoute, private heroService: HeroService, private snackBar: MatSnackBar, private router: Router) {
+  }
 
   ngOnInit() {
     this.hero$ = this.route.queryParamMap.pipe(
@@ -25,5 +27,20 @@ export class EditHeroComponent implements OnInit {
     this.hero$.subscribe(hero => {
       this.hero = hero;
     });
+  }
+
+  async onEditRequested({name, agility, health, strength, attack}) {
+    this.hero.setName(name)
+      .setAgility(agility)
+      .setHealth(health)
+      .setStrength(strength)
+      .setAttack(attack);
+    await this.heroService.update(this.hero);
+    this.snackBar.open('Modifié avec succès', 'Retourner à la liste', {duration: 1000 * 5, panelClass: ["snackbar-success"]})
+      .onAction()
+      .subscribe((observer) => {
+        this.router.navigate(['/heores']);
+      });
+
   }
 }

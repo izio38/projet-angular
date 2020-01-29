@@ -63,4 +63,12 @@ export class HeroService {
       })
     );
   }
+
+  update(hero: Hero): Promise<void> {
+    return this.db.collection('heroes').doc(hero.id).update(hero.toFlatJSON());
+  }
+
+  delete(hero: Hero): Promise<void> {
+    return this.db.collection('heroes').doc(hero.id).delete();
+  }
 }

@@ -29,3 +29,8 @@ body, input[type="text"], button {
 .container > h1 {
   color: white;
 }
+
+.snackbar-success {
+  background: #28a745;
+  color: white;
+}

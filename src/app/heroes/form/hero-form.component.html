@@ -1,29 +1,26 @@
 <form class="form-container" [formGroup]="heroForm">
-  <label>
-    Nom :
-    <input type="text" required formControlName="name"/>
-  </label>
-  <p class="error-message" *ngIf="heroForm.get('name').hasError('minlength')">Le nom doit comporter 3 caractères.</p>
-  <p class="error-message" *ngIf="heroForm.get('name').hasError('required')">Un nom est requis.</p>
-  <label>
-    Agilité :
-    <input type="number" required formControlName="agility"/>
-    <p class="error-message" *ngIf="heroForm.get('agility').hasError('required')">Une valeur est requise.</p>
-    <p class="error-message" *ngIf="heroForm.get('agility').hasError('min')">La valeur minimale est 0.</p>
-    <p class="error-message" *ngIf="heroForm.get('agility').hasError('max')">La valeur maximale est 40.</p>
-  </label>
-  <label>
-    Attaque :
-    <input type="number" required formControlName="attack"/>
-    <p class="error-message" *ngIf="heroForm.get('attack').hasError('required')">Une valeur est requise.</p>
-    <p class="error-message" *ngIf="heroForm.get('attack').hasError('min')">La valeur minimale est 0.</p>
-    <p class="error-message" *ngIf="heroForm.get('attack').hasError('max')">La valeur maximale est 40.</p>
-
-
-  </label>
+  <mat-form-field>
+    <input matInput placeholder="Entrez le nom du héro" [formControl]="heroForm.controls.name" required>
+    <mat-error *ngIf="heroForm.get('name').hasError('minlength')">Le nom doit comporter 3 caractères.</mat-error>
+    <mat-error *ngIf="heroForm.get('name').hasError('required')">Un nom est requis.</mat-error>
+  </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Entrez la vie du héro" [formControl]="heroForm.controls.health" required>
+    <input matInput type="number" placeholder="Entrez l'agilité du héro" [formControl]="heroForm.controls.agility" required>
+    <mat-error *ngIf="heroForm.get('agility').hasError('required')">Une valeur est requise.</mat-error>
+    <mat-error *ngIf="heroForm.get('agility').hasError('min')">La valeur minimale est 0.</mat-error>
+    <mat-error *ngIf="heroForm.get('agility').hasError('max')">La valeur maximale est 40.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="number" placeholder="Entrez l'attaque du héro" [formControl]="heroForm.controls.attack" required>
+    <mat-error *ngIf="heroForm.get('attack').hasError('required')">Une valeur est requise.</mat-error>
+    <mat-error *ngIf="heroForm.get('attack').hasError('min')">La valeur minimale est 0.</mat-error>
+    <mat-error *ngIf="heroForm.get('attack').hasError('max')">La valeur maximale est 40.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="number" placeholder="Entrez la vie du héro" [formControl]="heroForm.controls.health" required>
     <mat-error *ngIf="heroForm.get('health').hasError('required')">Une valeur est requise.</mat-error>
     <mat-error *ngIf="heroForm.get('health').hasError('min')">La valeur minimale est 0.</mat-error>
     <mat-error *ngIf="heroForm.get('health').hasError('max')">La valeur maximale est 40.</mat-error>
@@ -31,15 +28,15 @@
 
 
   <mat-form-field>
-    <input matInput placeholder="Entrez la force du héro" [formControl]="heroForm.controls.strength" required>
+    <input matInput type="number" placeholder="Entrez la force du héro" [formControl]="heroForm.controls.strength" required>
     <mat-error *ngIf="heroForm.get('strength').hasError('required')">Une valeur est requise.</mat-error>
     <mat-error *ngIf="heroForm.get('strength').hasError('min')">La valeur minimale est 0.</mat-error>
     <mat-error *ngIf="heroForm.get('strength').hasError('max')">La valeur maximale est 40.</mat-error>
   </mat-form-field>
 
 
-  <p class="error-message" *ngIf="heroForm.hasError('abilityValidator')">La somme des aptitudes doivent être inférieur à
-    40.</p>
+  <mat-error *ngIf="heroForm.hasError('abilityValidator')">La somme des aptitudes doivent être inférieur à
+    40.</mat-error>
 
   <button class="btn btn-success" (click)="submitForm()"
           [disabled]="!heroForm.valid">{{ isCreationMode ? 'Créer' : 'Modifier'}}</button>

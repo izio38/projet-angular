@@ -11,6 +11,10 @@ $toolbar-title-padding: 16px !default;
   cursor: pointer;
 }
 
-span {
+.brand {
+  font-size: 32px;
   font-family: Roboto, serif;
+  &:hover {
+    cursor: pointer;
+  }
 }

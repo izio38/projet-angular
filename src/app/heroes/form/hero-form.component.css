@@ -3,6 +3,10 @@
   flex-direction: column;
 }
 
-.form-container, mat-form-field {
-  width: 100%;
+.form-container {
+  width: 60%;
+}
+
+mat-form-field {
+  margin-bottom: 10px;
 }

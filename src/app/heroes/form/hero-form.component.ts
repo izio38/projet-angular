@@ -33,8 +33,6 @@ export class HeroFormComponent implements OnInit {
         {validators: abilityValidator}
       );
     } else {
-      console.log("ok")
-      console.log(this.hero)
       this.heroForm = new FormGroup(
         {
           name: new FormControl(this.hero.name, [Validators.minLength(3)]),

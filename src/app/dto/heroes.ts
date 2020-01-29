@@ -21,6 +21,41 @@ export class Hero {
   getRemainingAbilityPoints(): number {
     return 40 - this.getTotalAbilityPoints();
   }
+
+  toFlatJSON() {
+    return {
+      name: this.name,
+      agility: this.abilities.agility,
+      attack: this.abilities.attack,
+      health: this.abilities.health,
+      strength: this.abilities.strength
+    };
+  }
+
+  setName(name: string): Hero {
+    this.name = name;
+    return this;
+  }
+
+  setAgility(agility: number): Hero {
+    this.abilities.agility = agility;
+    return this;
+  }
+
+  setStrength(strength: number): Hero {
+    this.abilities.strength = strength;
+    return this;
+  }
+
+  setAttack(attack: number): Hero {
+    this.abilities.attack = attack;
+    return this;
+  }
+  setHealth(health: number): Hero {
+    this.abilities.health = health;
+    return this;
+  }
+
 }
 
 export interface HeroAbilities {

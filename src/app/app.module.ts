@@ -27,6 +27,8 @@ import {
   MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 
@@ -64,7 +66,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatExpansionModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSnackBarModule
   ],
   providers: [HeroService],
   bootstrap: [AppComponent],
