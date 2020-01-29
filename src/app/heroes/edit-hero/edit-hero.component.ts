@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {Hero} from '../../dto/heroes';
 import {switchMap} from 'rxjs/operators';
 import {HeroService} from '../../hero.service';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-hero',

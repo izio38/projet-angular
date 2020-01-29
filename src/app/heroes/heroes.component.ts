@@ -3,7 +3,7 @@ import {Hero} from '../dto/heroes';
 import {HeroService} from '../hero.service';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-heroes',
