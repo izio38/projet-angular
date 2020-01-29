@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import {abilityValidator} from '../form/ability.validator';
+import { Component } from '@angular/core';
 import {HeroService} from '../../services/hero.service';
-import {Hero, HeroAbilities} from '../../dto/heroes';
 import {Router} from '@angular/router';
 
 @Component({
@@ -10,11 +7,8 @@ import {Router} from '@angular/router';
   templateUrl: './create-hero.component.html',
   styleUrls: ['./create-hero.component.css'],
 })
-export class CreateHeroComponent implements OnInit {
+export class CreateHeroComponent {
   constructor(private heroService: HeroService, private router: Router) {}
-
-  ngOnInit() {
-  }
 
   async onCreateSubmitted({name, health, strength, agility, attack}) {
     await this.heroService.create(name, {health, strength, agility, attack});

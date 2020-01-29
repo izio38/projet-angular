@@ -1,15 +1,13 @@
-import {Injectable} from '@angular/core';
-import {Hero, HeroAbilities} from '../dto/heroes';
-import {HEROES} from '../heroes.mock';
-import {AngularFirestore, DocumentChangeAction} from '@angular/fire/firestore';
-import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Hero, HeroAbilities } from '../dto/heroes';
+import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HeroService {
-  heroes: Hero[] = HEROES;
 
   constructor(private readonly db: AngularFirestore) {
   }
@@ -24,10 +22,10 @@ export class HeroService {
             health: data.health,
             strength: data.strength,
             agility: data.agility,
-            attack: data.attack
+            attack: data.attack,
           });
         });
-      })
+      }),
     );
   }
 
@@ -36,16 +34,16 @@ export class HeroService {
       this.getHeroes().pipe(
         map(heroes => heroes.sort((a, b) => b.getTotalAbilityPoints() - a.getTotalAbilityPoints())
           // Get the n first
-          .slice(0, n))
+          .slice(0, n)),
       )
     );
   }
 
-  create(name: string, abilities: HeroAbilities) {
-    return this.db.collection('heroes').add({name, ...abilities});
+  create(name: string, abilities: HeroAbilities): Promise<DocumentReference> {
+    return this.db.collection('heroes').add({ name, ...abilities });
   }
 
-  bulkDelete() {
+  bulkDelete(): Subscription {
     return this.db.collection('heroes').get().subscribe((observer) => {
       observer.forEach(async (hero) => {
         await this.db.collection('heroes').doc(hero.id).delete();
@@ -59,8 +57,8 @@ export class HeroService {
         const data = hero.payload.data() as any;
         const heroId = hero.payload.id;
 
-        return new Hero(heroId, data.name, {strength: data.strength, health: data.health, attack: data.attack, agility: data.agility});
-      })
+        return new Hero(heroId, data.name, { strength: data.strength, health: data.health, attack: data.attack, agility: data.agility });
+      }),
     );
   }
 

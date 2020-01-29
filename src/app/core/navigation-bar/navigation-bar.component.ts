@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
@@ -6,15 +6,9 @@ import {Router} from '@angular/router';
   templateUrl: './navigation-bar.component.html',
   styleUrls: ['./navigation-bar.component.scss']
 })
-export class NavigationBarComponent implements OnInit {
+export class NavigationBarComponent {
   @Output() toggleSidenav = new EventEmitter<void>();
   @Input() routes: Array<any> = [];
 
-  private returnUrl = '/';
-
   constructor(private router: Router) {}
-
-  ngOnInit() {
-  }
-
 }

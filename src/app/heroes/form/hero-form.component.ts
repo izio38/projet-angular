@@ -64,7 +64,7 @@ export class HeroFormComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // This causes error
+    // This causes error but it could be great to have it in a working state
     // this.renderer.selectRootElement('#nameInput').focus();
   }
 
