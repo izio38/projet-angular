@@ -1,4 +1,4 @@
-<form class="form-container" [formGroup]="heroForm">
+<form fxFlex="60%" fxLayout="column" fxFlex.lt-md="100%" [formGroup]="heroForm">
   <mat-form-field>
     <input id="nameInput" matInput placeholder="Entrez le nom du héro" [formControl]="heroForm.controls.name" required>
     <mat-error *ngIf="heroForm.get('name').hasError('minlength')">Le nom doit comporter 3 caractères.</mat-error>
