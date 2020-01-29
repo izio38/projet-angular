@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {abilityValidator} from '../../shared/ability.validator';
 import {HeroService} from '../../hero.service';
-import {HeroAbilities} from '../../dto/heroes';
+import {Hero, HeroAbilities} from '../../dto/heroes';
 import {Router} from '@angular/router';
 
 @Component({
@@ -11,8 +11,6 @@ import {Router} from '@angular/router';
   styleUrls: ['./create-hero.component.css'],
 })
 export class CreateHeroComponent implements OnInit {
-
-
   constructor(private heroService: HeroService, private router: Router) {}
 
   ngOnInit() {

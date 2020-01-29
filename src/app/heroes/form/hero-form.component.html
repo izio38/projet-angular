@@ -1,11 +1,11 @@
 <form class="form-container" [formGroup]="heroForm">
   <mat-form-field>
-    <input matInput placeholder="Entrez le nom du héro" [formControl]="heroForm.controls.name" required>
+    <input id="nameInput" matInput placeholder="Entrez le nom du héro" [formControl]="heroForm.controls.name" required>
     <mat-error *ngIf="heroForm.get('name').hasError('minlength')">Le nom doit comporter 3 caractères.</mat-error>
     <mat-error *ngIf="heroForm.get('name').hasError('required')">Un nom est requis.</mat-error>
   </mat-form-field>
 
-  <h2>Les points ({{ hero.getRemainingAbilityPoints() }} restants )</h2>
+  <h2 *ngIf="hero">Les points ( {{ hero.getRemainingAbilityPoints() }} restants )</h2>
 
   <mat-form-field>
     <input matInput type="number" placeholder="Entrez l'agilité du héro" [formControl]="heroForm.controls.agility" required>

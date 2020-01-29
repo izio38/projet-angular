@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, AfterViewInit, Output, Renderer2} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {abilityValidator} from '../../shared/ability.validator';
 import {Hero, HeroAbilities} from '../../dto/heroes';
@@ -8,17 +8,17 @@ import {Hero, HeroAbilities} from '../../dto/heroes';
   templateUrl: './hero-form.component.html',
   styleUrls: ['./hero-form.component.css']
 })
-export class HeroFormComponent implements OnInit {
+export class HeroFormComponent implements OnInit, AfterViewInit {
+
   @Input() isCreationMode: boolean;
-  @Input() hero: Hero;
+  @Input() hero: Hero = null;
 
   @Output() createRequested: EventEmitter<any> = new EventEmitter();
   @Output() editRequested: EventEmitter<any> = new EventEmitter();
 
   heroForm: FormGroup;
 
-  constructor() {
-  }
+  constructor(private readonly renderer: Renderer2) {}
 
   ngOnInit() {
     if (this.isCreationMode) {
@@ -46,12 +46,26 @@ export class HeroFormComponent implements OnInit {
     }
 
     this.heroForm.valueChanges.subscribe((values) => {
+      if (this.heroForm.valid) {
+        if (!this.hero) {
+          this.hero = new Hero('', values.name, {
+            agility: values.agility,
+            strength: values.strength,
+            health: values.health,
+            attack: values.attack
+          });
+        }
         this.hero.setAttack(values.attack)
           .setStrength(values.strength)
           .setHealth(values.health)
           .setAgility(values.agility);
+      }
     });
+  }
 
+  ngAfterViewInit(): void {
+    // This causes error
+    // this.renderer.selectRootElement('#nameInput').focus();
   }
 
   async submitForm() {
