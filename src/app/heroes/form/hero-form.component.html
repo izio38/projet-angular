@@ -5,6 +5,8 @@
     <mat-error *ngIf="heroForm.get('name').hasError('required')">Un nom est requis.</mat-error>
   </mat-form-field>
 
+  <h2>Les points ({{ hero.getRemainingAbilityPoints() }} restants )</h2>
+
   <mat-form-field>
     <input matInput type="number" placeholder="Entrez l'agilité du héro" [formControl]="heroForm.controls.agility" required>
     <mat-error *ngIf="heroForm.get('agility').hasError('required')">Une valeur est requise.</mat-error>

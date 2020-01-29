@@ -45,6 +45,13 @@ export class HeroFormComponent implements OnInit {
       );
     }
 
+    this.heroForm.valueChanges.subscribe((values) => {
+        this.hero.setAttack(values.attack)
+          .setStrength(values.strength)
+          .setHealth(values.health)
+          .setAgility(values.agility);
+    });
+
   }
 
   async submitForm() {

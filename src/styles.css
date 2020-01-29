@@ -34,3 +34,11 @@ body, input[type="text"], button {
   background: #28a745;
   color: white;
 }
+
+h1, h2, h3 {
+  font-family: "Exo 2", serif;
+}
+
+p, div, input, button {
+  font-family: Roboto, serif;
+}
