@@ -8,21 +8,21 @@
   <mat-form-field>
     <input matInput type="number" placeholder="Entrez l'agilité du héro" [formControl]="heroForm.controls.agility" required>
     <mat-error *ngIf="heroForm.get('agility').hasError('required')">Une valeur est requise.</mat-error>
-    <mat-error *ngIf="heroForm.get('agility').hasError('min')">La valeur minimale est 0.</mat-error>
+    <mat-error *ngIf="heroForm.get('agility').hasError('min')">La valeur minimale est 1.</mat-error>
     <mat-error *ngIf="heroForm.get('agility').hasError('max')">La valeur maximale est 40.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <input matInput type="number" placeholder="Entrez l'attaque du héro" [formControl]="heroForm.controls.attack" required>
     <mat-error *ngIf="heroForm.get('attack').hasError('required')">Une valeur est requise.</mat-error>
-    <mat-error *ngIf="heroForm.get('attack').hasError('min')">La valeur minimale est 0.</mat-error>
+    <mat-error *ngIf="heroForm.get('attack').hasError('min')">La valeur minimale est 1.</mat-error>
     <mat-error *ngIf="heroForm.get('attack').hasError('max')">La valeur maximale est 40.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <input matInput type="number" placeholder="Entrez la vie du héro" [formControl]="heroForm.controls.health" required>
     <mat-error *ngIf="heroForm.get('health').hasError('required')">Une valeur est requise.</mat-error>
-    <mat-error *ngIf="heroForm.get('health').hasError('min')">La valeur minimale est 0.</mat-error>
+    <mat-error *ngIf="heroForm.get('health').hasError('min')">La valeur minimale est 1.</mat-error>
     <mat-error *ngIf="heroForm.get('health').hasError('max')">La valeur maximale est 40.</mat-error>
   </mat-form-field>
 
@@ -30,7 +30,7 @@
   <mat-form-field>
     <input matInput type="number" placeholder="Entrez la force du héro" [formControl]="heroForm.controls.strength" required>
     <mat-error *ngIf="heroForm.get('strength').hasError('required')">Une valeur est requise.</mat-error>
-    <mat-error *ngIf="heroForm.get('strength').hasError('min')">La valeur minimale est 0.</mat-error>
+    <mat-error *ngIf="heroForm.get('strength').hasError('min')">La valeur minimale est 1.</mat-error>
     <mat-error *ngIf="heroForm.get('strength').hasError('max')">La valeur maximale est 40.</mat-error>
   </mat-form-field>
 
