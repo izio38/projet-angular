@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Hero, HeroAbilities} from './dto/heroes';
-import {HEROES} from './heroes.mock';
+import {Hero, HeroAbilities} from '../dto/heroes';
+import {HEROES} from '../heroes.mock';
 import {AngularFirestore, DocumentChangeAction} from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';

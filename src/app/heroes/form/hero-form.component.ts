@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, AfterViewInit, Output, Renderer2} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {abilityValidator} from '../../shared/ability.validator';
+import {abilityValidator} from './ability.validator';
 import {Hero, HeroAbilities} from '../../dto/heroes';
 
 @Component({

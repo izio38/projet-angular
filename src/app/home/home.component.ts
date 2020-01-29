@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from '../dto/heroes';
-import { HeroService } from '../hero.service';
+import { HeroService } from '../services/hero.service';
 import { Router } from '@angular/router';
 import {Observable} from 'rxjs';
 @Component({

@@ -3,7 +3,7 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Hero} from '../../dto/heroes';
 import {switchMap} from 'rxjs/operators';
-import {HeroService} from '../../hero.service';
+import {HeroService} from '../../services/hero.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import {abilityValidator} from '../../shared/ability.validator';
-import {HeroService} from '../../hero.service';
+import {abilityValidator} from '../form/ability.validator';
+import {HeroService} from '../../services/hero.service';
 import {Hero, HeroAbilities} from '../../dto/heroes';
 import {Router} from '@angular/router';
 
