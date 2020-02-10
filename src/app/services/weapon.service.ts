@@ -60,6 +60,7 @@ export class WeaponService {
   }
 
   update(weapon: Weapon): Promise<void> {
+    console.log(weapon)
     return this.db.collection('weapons').doc(weapon.id).update(weapon.toFlatJSON());
   }
 

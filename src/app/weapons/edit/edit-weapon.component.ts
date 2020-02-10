@@ -32,7 +32,8 @@ export class EditWeaponComponent implements OnInit {
   }
 
   async onEditRequested(weaponValues: any) {
-    await this.weaponService.update(Weapon.fromValues(weaponValues));
+    this.weapon.setName(weaponValues.name);
+    await this.weaponService.update(this.weapon);
 
     this.snackBar.open('Modifié avec succès', 'Retourner à la liste', {duration: 1000 * 5, panelClass: ['snackbar-success']})
       .onAction()
