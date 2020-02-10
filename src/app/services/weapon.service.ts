@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore, DocumentReference} from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
-import {Hero, HeroAbilities} from '../dto/heroes';
 import {Observable, Subscription} from 'rxjs';
 import {Weapon} from '../dto/weapons';
 
@@ -18,7 +17,7 @@ export class WeaponService {
         return weapons.map((weapon: any) => {
           const data = weapon.payload.doc.data();
           const weaponId = weapon.payload.doc.id;
-          return new Weapon(weaponId, data.name);
+          return new Weapon(weaponId, data.name, {attack: data.attack, strength: data.strength, health: data.strength, agility: data.agility});
         });
       }),
     );
@@ -35,15 +34,13 @@ export class WeaponService {
   }
 
   create(weapon: Weapon): Promise<DocumentReference> {
-    return this.db.collection('weapons').add({
-      name: weapon.name,
-    });
+    return this.db.collection('weapons').add(weapon.toFlatJSON());
   }
 
   bulkDelete(): Subscription {
     return this.db.collection('weapons').get().subscribe((observer) => {
       observer.forEach(async (weapon) => {
-        await this.db.collection('heroes').doc(weapon.id).delete();
+        await this.db.collection('weapons').doc(weapon.id).delete();
       });
     });
   }
@@ -53,14 +50,12 @@ export class WeaponService {
       map(weapon => {
         const data = weapon.payload.data() as any;
         const weaponId = weapon.payload.id;
-
-        return new Weapon(weaponId, data.name);
+        return new Weapon(weaponId, data.name, {agility: data.agility, health: data.health, strength: data.strength, attack: data.attack});
       }),
     );
   }
 
   update(weapon: Weapon): Promise<void> {
-    console.log(weapon)
     return this.db.collection('weapons').doc(weapon.id).update(weapon.toFlatJSON());
   }
 

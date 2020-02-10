@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, AfterViewInit, Output, Renderer2} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {abilityValidator} from './ability.validator';
-import {Hero, HeroAbilities} from '../../dto/heroes';
+import {Hero} from '../../dto/heroes';
+import {Abilities} from '../../dto/abilities';
 
 @Component({
   selector: 'app-hero-form',
@@ -69,7 +70,7 @@ export class HeroFormComponent implements OnInit, AfterViewInit {
   }
 
   async submitForm() {
-    const {health, strength, attack, agility}: HeroAbilities = this.heroForm.value;
+    const {health, strength, attack, agility}: Abilities = this.heroForm.value;
 
     if (this.isCreationMode) {
       this.createRequested.emit({health, strength, attack, agility, name: this.heroForm.value.name});

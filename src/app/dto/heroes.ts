@@ -1,9 +1,11 @@
+import {Abilities} from './abilities';
+
 export class Hero {
   id: string;
   name: string;
-  abilities: HeroAbilities;
+  abilities: Abilities;
 
-  constructor(id: string, name: string, abilities: HeroAbilities) {
+  constructor(id: string, name: string, abilities: Abilities) {
     this.id = id;
     this.name = name;
     this.abilities = abilities;
@@ -51,16 +53,10 @@ export class Hero {
     this.abilities.attack = attack;
     return this;
   }
+
   setHealth(health: number): Hero {
     this.abilities.health = health;
     return this;
   }
 
-}
-
-export interface HeroAbilities {
-  strength: number;
-  agility: number;
-  attack: number;
-  health: number;
 }

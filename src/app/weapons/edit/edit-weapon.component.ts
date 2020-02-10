@@ -26,13 +26,17 @@ export class EditWeaponComponent implements OnInit {
       })
     );
 
-    this.weapon$.subscribe(hero => {
-      this.weapon = hero;
+    this.weapon$.subscribe(weapon => {
+      this.weapon = weapon;
     });
   }
 
   async onEditRequested(weaponValues: any) {
-    this.weapon.setName(weaponValues.name);
+    this.weapon.setName(weaponValues.name)
+      .setAgility(weaponValues.agility)
+      .setAttack(weaponValues.attack)
+      .setHealth(weaponValues.health)
+      .setStrength(weaponValues.strength);
     await this.weaponService.update(this.weapon);
 
     this.snackBar.open('Modifié avec succès', 'Retourner à la liste', {duration: 1000 * 5, panelClass: ['snackbar-success']})

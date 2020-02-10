@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Hero, HeroAbilities} from '../../dto/heroes';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {abilityValidator} from '../../heroes/form/ability.validator';
+import {abilityValidator} from './abilities.validator';
 import {Weapon} from '../../dto/weapons';
 
 @Component({
@@ -26,24 +25,34 @@ export class FormWeaponComponent implements OnInit {
       this.weaponForm = new FormGroup(
         {
           name: new FormControl('', [Validators.minLength(3)]),
-        }
+          agility: new FormControl(-1, [Validators.min(-5), Validators.max(5)]),
+          attack: new FormControl(-1, [Validators.min(-5), Validators.max(5)]),
+          health: new FormControl(1, [Validators.min(-5), Validators.max(5)]),
+          strength: new FormControl(1, [Validators.min(-5), Validators.max(5)]),
+        },
+        {validators: abilityValidator}
       );
     } else {
       this.weaponForm = new FormGroup(
         {
           name: new FormControl(this.weapon.name, [Validators.minLength(3)]),
-        }
+          agility: new FormControl(this.weapon.abilities.agility, [Validators.min(-5), Validators.max(5)]),
+          attack: new FormControl(this.weapon.abilities.attack, [Validators.min(-5), Validators.max(5)]),
+          health: new FormControl(this.weapon.abilities.health, [Validators.min(-5), Validators.max(5)]),
+          strength: new FormControl(this.weapon.abilities.strength, [Validators.min(-5), Validators.max(5)]),
+        },
+        {validators: abilityValidator}
       );
     }
   }
 
   submitForm() {
-    const {name} = this.weaponForm.value;
+    const {name, agility, health, attack, strength} = this.weaponForm.value;
 
     if (this.isCreationMode) {
-      this.createRequested.emit({name});
+      this.createRequested.emit({name, agility, health, attack, strength});
     } else {
-      this.editRequested.emit({name});
+      this.editRequested.emit({name, agility, health, attack, strength});
     }
   }
 

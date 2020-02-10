@@ -1,9 +1,43 @@
 <form fxFlex="60%" fxLayout="column" fxFlex.lt-md="100%" [formGroup]="weaponForm">
   <mat-form-field>
-    <input id="nameInput" matInput placeholder="Entrez le nom du héro" [formControl]="weaponForm.controls.name" required>
+    <input id="nameInput" matInput placeholder="Entrez le nom de l'arme" [formControl]="weaponForm.controls.name" required>
     <mat-error *ngIf="weaponForm.get('name').hasError('minlength')">Le nom doit comporter 3 caractères.</mat-error>
     <mat-error *ngIf="weaponForm.get('name').hasError('required')">Un nom est requis.</mat-error>
   </mat-form-field>
+
+  <h2 *ngIf="weapon">Les points ( {{ weapon.getRemainingAbilityPoints() }} restants )</h2>
+
+  <mat-form-field>
+    <input matInput type="number" placeholder="Entrez l'agilité de l'arme" [formControl]="weaponForm.controls.agility" required>
+    <mat-error *ngIf="weaponForm.get('agility').hasError('required')">Une valeur est requise.</mat-error>
+    <mat-error *ngIf="weaponForm.get('agility').hasError('min')">La valeur minimale est -5.</mat-error>
+    <mat-error *ngIf="weaponForm.get('agility').hasError('max')">La valeur maximale est 5.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="number" placeholder="Entrez l'attaque de l'arme" [formControl]="weaponForm.controls.attack" required>
+    <mat-error *ngIf="weaponForm.get('attack').hasError('required')">Une valeur est requise.</mat-error>
+    <mat-error *ngIf="weaponForm.get('attack').hasError('min')">La valeur minimale est -5.</mat-error>
+    <mat-error *ngIf="weaponForm.get('attack').hasError('max')">La valeur maximale est 5.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="number" placeholder="Entrez la vie de l'arme" [formControl]="weaponForm.controls.health" required>
+    <mat-error *ngIf="weaponForm.get('health').hasError('required')">Une valeur est requise.</mat-error>
+    <mat-error *ngIf="weaponForm.get('health').hasError('min')">La valeur minimale est -5.</mat-error>
+    <mat-error *ngIf="weaponForm.get('health').hasError('max')">La valeur maximale est 5.</mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <input matInput type="number" placeholder="Entrez la force de l'arme" [formControl]="weaponForm.controls.strength" required>
+    <mat-error *ngIf="weaponForm.get('strength').hasError('required')">Une valeur est requise.</mat-error>
+    <mat-error *ngIf="weaponForm.get('strength').hasError('min')">La valeur minimale est -5.</mat-error>
+    <mat-error *ngIf="weaponForm.get('strength').hasError('max')">La valeur maximale est 5.</mat-error>
+  </mat-form-field>
+
+
+  <mat-error *ngIf="weaponForm.hasError('abilityValidator')">La somme des aptitudes doivent être égale à 0.</mat-error>
 
   <button class="btn btn-success" (click)="submitForm()"
           [disabled]="!weaponForm.valid">{{ isCreationMode ? 'Créer' : 'Modifier'}}</button>

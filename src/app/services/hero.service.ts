@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Hero, HeroAbilities } from '../dto/heroes';
+import { Hero, Abilities } from '../dto/heroes';
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
@@ -39,7 +39,7 @@ export class HeroService {
     );
   }
 
-  create(name: string, abilities: HeroAbilities): Promise<DocumentReference> {
+  create(name: string, abilities: Abilities): Promise<DocumentReference> {
     return this.db.collection('heroes').add({ name, ...abilities });
   }
 
