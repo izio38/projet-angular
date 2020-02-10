@@ -9,6 +9,7 @@ export class SideNavComponent {
   routes = [
     {path: '/', name: 'Home', icon: 'house'},
     {path: 'heroes', name: 'Les héros', icon: 'view_list'},
+    {path: 'weapons', name: 'Les Armes', icon: 'view_list'}
   ];
 
   constructor() {

@@ -3,35 +3,37 @@ import {Hero} from '../dto/heroes';
 import {HeroService} from '../services/hero.service';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-heroes',
-  templateUrl: './heroes.component.html',
-  styleUrls: ['./heroes.component.scss'],
+    selector: 'app-heroes',
+    templateUrl: './heroes.component.html',
+    styleUrls: ['./heroes.component.scss'],
 })
 export class HeroesComponent implements OnInit {
-  heroes: Observable<Hero[]>;
+    heroes$: Observable<Hero[]>;
 
-  constructor(private readonly heroService: HeroService, private router: Router, private snackBar: MatSnackBar) {
-  }
+    constructor(private readonly heroService: HeroService, private router: Router, private snackBar: MatSnackBar) {
+    }
 
-  ngOnInit() {
-    this.heroes = this.heroService.getHeroes();
-  }
+    ngOnInit() {
+        this.heroes$ = this.heroService.getHeroes();
+    }
 
-  bulkDelete() {
-    this.heroService.bulkDelete();
-  }
+    bulkDelete() {
+        this.heroService.bulkDelete().add(() => {
+          this.snackBar.open('Suppression de masse effectuée avec succès', null, {duration: 1000 * 5, panelClass: ['snackbar-success']});
+        });
+    }
 
-  async goToEditHero(hero: Hero) {
-    await this.router.navigate(['/hero/edit'], {
-      queryParams: {id: hero.id},
-    });
-  }
+    async goToEditHero(hero: Hero) {
+        await this.router.navigate(['/hero/edit'], {
+            queryParams: {id: hero.id},
+        });
+    }
 
-  async deleteHero(hero: Hero) {
-    await this.heroService.delete(hero);
-    this.snackBar.open('Supprimé avec succès', null, {duration: 1000 * 3, panelClass: ['snackbar-success']});
-  }
+    async deleteHero(hero: Hero) {
+        await this.heroService.delete(hero);
+        this.snackBar.open('Supprimé avec succès', null, {duration: 1000 * 3, panelClass: ['snackbar-success']});
+    }
 }

@@ -30,6 +30,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { WeaponsComponent } from './weapons/weapons.component';
+import { CreateWeaponComponent } from './weapons/create/create-weapon.component';
+import { EditWeaponComponent } from './weapons/edit/edit-weapon.component';
+import { FormWeaponComponent } from './weapons/form/form-weapon.component';
 
 
 @NgModule({
@@ -42,6 +46,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     HeroFormComponent,
     NavigationBarComponent,
     SideNavComponent,
+    WeaponsComponent,
+    CreateWeaponComponent,
+    EditWeaponComponent,
+    FormWeaponComponent,
   ],
   imports: [
     BrowserModule,

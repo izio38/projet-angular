@@ -5,7 +5,7 @@
     <button (click)="bulkDelete()" mat-raised-button color="warn">Tout supprimer</button>
   </div>
   <mat-list role="list">
-    <mat-list-item *ngFor="let hero of heroes | async;" role="listitem">
+    <mat-list-item *ngFor="let hero of heroes$ | async;" role="listitem">
       <p mat-line (click)="goToEditHero(hero)" style="padding-top: 6px; padding-bottom: 6px;"> {{ hero.name }} - {{ hero.getTotalAbilityPoints() }} points </p>
       <button mat-button color="warn" (click)="deleteHero(hero)" > Supprimer </button>
     </mat-list-item>
