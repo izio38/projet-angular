@@ -7,6 +7,12 @@ export class Weapon {
     this.name = name;
   }
 
+  static fromValues(values: any) {
+    if (values.name) {
+      return new Weapon('', values.name);
+    }
+  }
+
   setName(name: string): Weapon {
     this.name = name;
     return this;
@@ -16,6 +22,7 @@ export class Weapon {
     this.id = id;
     return this;
   }
+
 
   toFlatJSON() {
     return {

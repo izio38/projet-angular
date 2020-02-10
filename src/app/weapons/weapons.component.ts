@@ -26,7 +26,7 @@ export class WeaponsComponent implements OnInit {
   }
 
   async goToEditWeapon(weapon: Weapon) {
-    await this.router.navigate(['/hero/edit'], {
+    await this.router.navigate(['/weapon/edit'], {
       queryParams: {id: weapon.id},
     });
   }

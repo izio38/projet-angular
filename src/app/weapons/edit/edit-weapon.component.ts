@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {Hero} from '../../dto/heroes';
+import {Weapon} from '../../dto/weapons';
+import {switchMap} from 'rxjs/operators';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {WeaponService} from '../../services/weapon.service';
 
 @Component({
   selector: 'app-edit',
@@ -6,10 +13,31 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-weapon.component.css']
 })
 export class EditWeaponComponent implements OnInit {
+  weapon$: Observable<Weapon>;
+  weapon: Weapon;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private route: ActivatedRoute, private snackBar: MatSnackBar, private router: Router, private readonly weaponService: WeaponService) {
   }
 
+  ngOnInit() {
+    this.weapon$ = this.route.queryParamMap.pipe(
+      switchMap((params: ParamMap) => {
+        return this.weaponService.getFromId(params.get('id'));
+      })
+    );
+
+    this.weapon$.subscribe(hero => {
+      this.weapon = hero;
+    });
+  }
+
+  async onEditRequested(weaponValues: any) {
+    await this.weaponService.update(Weapon.fromValues(weaponValues));
+
+    this.snackBar.open('Modifié avec succès', 'Retourner à la liste', {duration: 1000 * 5, panelClass: ['snackbar-success']})
+      .onAction()
+      .subscribe((observer) => {
+        this.router.navigate(['/weapons']);
+      });
+  }
 }

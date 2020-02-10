@@ -1,1 +1,10 @@
-<p>form works!</p>
+<form fxFlex="60%" fxLayout="column" fxFlex.lt-md="100%" [formGroup]="weaponForm">
+  <mat-form-field>
+    <input id="nameInput" matInput placeholder="Entrez le nom du héro" [formControl]="weaponForm.controls.name" required>
+    <mat-error *ngIf="weaponForm.get('name').hasError('minlength')">Le nom doit comporter 3 caractères.</mat-error>
+    <mat-error *ngIf="weaponForm.get('name').hasError('required')">Un nom est requis.</mat-error>
+  </mat-form-field>
+
+  <button class="btn btn-success" (click)="submitForm()"
+          [disabled]="!weaponForm.valid">{{ isCreationMode ? 'Créer' : 'Modifier'}}</button>
+</form>

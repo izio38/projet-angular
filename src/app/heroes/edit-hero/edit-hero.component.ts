@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {Hero} from '../../dto/heroes';
 import {switchMap} from 'rxjs/operators';
 import {HeroService} from '../../services/hero.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-hero',
@@ -36,7 +36,7 @@ export class EditHeroComponent implements OnInit {
       .setStrength(strength)
       .setAttack(attack);
     await this.heroService.update(this.hero);
-    this.snackBar.open('Modifié avec succès', 'Retourner à la liste', {duration: 1000 * 5, panelClass: ["snackbar-success"]})
+    this.snackBar.open('Modifié avec succès', 'Retourner à la liste', {duration: 1000 * 5, panelClass: ['snackbar-success']})
       .onAction()
       .subscribe((observer) => {
         this.router.navigate(['/heores']);
