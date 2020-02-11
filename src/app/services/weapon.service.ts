@@ -18,12 +18,13 @@ export class WeaponService {
         return weapons.map((weapon: any) => {
           const data = weapon.payload.doc.data();
           const weaponId = weapon.payload.doc.id;
+          const referencePath = weapon.payload.doc.ref.path;
           return new Weapon(weaponId, data.name, {
             attack: data.attack,
             strength: data.strength,
             health: data.strength,
             agility: data.agility
-          });
+          }).setDocumentReferencePath(referencePath);
         });
       }),
     );

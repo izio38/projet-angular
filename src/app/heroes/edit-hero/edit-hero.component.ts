@@ -29,12 +29,14 @@ export class EditHeroComponent implements OnInit {
     });
   }
 
-  async onEditRequested({name, agility, health, strength, attack}) {
+  async onEditRequested({name, agility, health, strength, attack, avatarURI}) {
     this.hero.setName(name)
       .setAgility(agility)
       .setHealth(health)
       .setStrength(strength)
-      .setAttack(attack);
+      .setAttack(attack)
+      .setAvatarURI(avatarURI);
+
     await this.heroService.update(this.hero);
     this.snackBar.open('Modifié avec succès', 'Retourner à la liste', {duration: 1000 * 5, panelClass: ['snackbar-success']})
       .onAction()

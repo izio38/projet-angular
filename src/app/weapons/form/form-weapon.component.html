@@ -5,8 +5,6 @@
     <mat-error *ngIf="weaponForm.get('name').hasError('required')">Un nom est requis.</mat-error>
   </mat-form-field>
 
-  <h2 *ngIf="weapon">Les points ( {{ weapon.getRemainingAbilityPoints() }} restants )</h2>
-
   <mat-form-field>
     <input matInput type="number" placeholder="Entrez l'agilité de l'arme" [formControl]="weaponForm.controls.agility" required>
     <mat-error *ngIf="weaponForm.get('agility').hasError('required')">Une valeur est requise.</mat-error>
@@ -35,7 +33,6 @@
     <mat-error *ngIf="weaponForm.get('strength').hasError('min')">La valeur minimale est -5.</mat-error>
     <mat-error *ngIf="weaponForm.get('strength').hasError('max')">La valeur maximale est 5.</mat-error>
   </mat-form-field>
-
 
   <mat-error *ngIf="weaponForm.hasError('abilityValidator')">La somme des aptitudes doivent être égale à 0.</mat-error>
 

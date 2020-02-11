@@ -4,6 +4,7 @@ export class Weapon {
   id: string;
   name: string;
   abilities: Abilities;
+  documentReferencePath: string = null;
 
   constructor(id: string, name: string, abilities: Abilities) {
     this.id = id;
@@ -66,5 +67,14 @@ export class Weapon {
       health: this.abilities.health,
       attack: this.abilities.attack
     };
+  }
+
+  setDocumentReferencePath(referencePath: string): Weapon {
+    this.documentReferencePath = referencePath;
+    return this;
+  }
+
+  getDocumentReferencePath(): string {
+    return this.documentReferencePath;
   }
 }

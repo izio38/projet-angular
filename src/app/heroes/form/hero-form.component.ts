@@ -3,11 +3,24 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {abilityValidator} from './ability.validator';
 import {Hero} from '../../dto/heroes';
 import {Abilities} from '../../dto/abilities';
+import {Observable, of} from 'rxjs';
+import {AngularFireStorage} from '@angular/fire/storage';
+import {catchError, finalize, map} from 'rxjs/operators';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import { uuid } from 'uuidv4';
 
 @Component({
   selector: 'app-hero-form',
   templateUrl: './hero-form.component.html',
-  styleUrls: ['./hero-form.component.css']
+  styleUrls: ['./hero-form.component.css'],
+  animations: [
+    trigger('fadeInOut', [
+      state('in', style({ opacity: 100 })),
+      transition('* => void', [
+        animate(300, style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class HeroFormComponent implements OnInit, AfterViewInit {
 
@@ -19,7 +32,14 @@ export class HeroFormComponent implements OnInit, AfterViewInit {
 
   heroForm: FormGroup;
 
-  constructor(private readonly renderer: Renderer2) {}
+  uploadTextState = 'Ajouter une image';
+  uploadPercent: Observable<number>;
+  imageDownloadURI: string = null;
+
+  files: Array<FileUploadModel> = [];
+
+  constructor(private readonly renderer: Renderer2, private storage: AngularFireStorage) {
+  }
 
   ngOnInit() {
     if (this.isCreationMode) {
@@ -44,6 +64,9 @@ export class HeroFormComponent implements OnInit, AfterViewInit {
         },
         {validators: abilityValidator}
       );
+      if (this.hero.avatarURI) {
+        this.imageDownloadURI = this.hero.avatarURI;
+      }
     }
 
     this.heroForm.valueChanges.subscribe((values) => {
@@ -71,12 +94,95 @@ export class HeroFormComponent implements OnInit, AfterViewInit {
 
   async submitForm() {
     const {health, strength, attack, agility}: Abilities = this.heroForm.value;
+    const avatarURI = this.imageDownloadURI;
 
     if (this.isCreationMode) {
-      this.createRequested.emit({health, strength, attack, agility, name: this.heroForm.value.name});
+      this.createRequested.emit({avatarURI, health, strength, attack, agility, name: this.heroForm.value.name});
     } else {
-      this.editRequested.emit({health, strength, attack, agility, name: this.heroForm.value.name});
+      this.editRequested.emit({avatarURI, health, strength, attack, agility, name: this.heroForm.value.name});
     }
   }
 
+  cancelFile(file: FileUploadModel) {
+    this.removeFileFromArray(file);
+  }
+
+  retryFile(file: FileUploadModel) {
+    this.uploadFile(file);
+    file.canRetry = false;
+  }
+
+  private uploadFile(file: FileUploadModel) {
+    const fd = new FormData();
+    fd.append('file', file.data);
+
+    const filePath = uuid();
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file.data);
+
+    this.uploadPercent = task.percentageChanges();
+
+    task.snapshotChanges().pipe(
+      finalize(() => {
+        fileRef.getDownloadURL().subscribe((downloadURI) => {
+          this.imageDownloadURI = downloadURI;
+          this.removeFileFromArray(file);
+        });
+
+      })
+    )
+      .subscribe();
+
+    file.inProgress = true;
+    file.sub = this.uploadPercent.pipe(
+      map(percent => {
+        return file.progress = Math.round(percent);
+      }),
+      catchError((error) => {
+        file.inProgress = false;
+        file.canRetry = true;
+        return of(`${file.data.name} upload failed.`);
+      }
+    ));
+  }
+
+  private uploadFiles() {
+    const fileUpload = document.getElementById('fileUpload') as HTMLInputElement;
+    fileUpload.value = '';
+
+    this.files.forEach(file => {
+      this.uploadFile(file);
+    });
+  }
+
+  private removeFileFromArray(file: FileUploadModel) {
+    const index = this.files.indexOf(file);
+    if (index > -1) {
+      this.files.splice(index, 1);
+    }
+  }
+
+  onUploadImageClicked() {
+    const fileUpload = document.getElementById('fileUpload') as HTMLInputElement;
+    fileUpload.onchange = () => {
+      for (let index = 0; index < fileUpload.files.length; index++) {
+        const file = fileUpload.files[index];
+        this.files.push({ data: file, state: 'in',
+          inProgress: false, progress: 0, canRetry: false, canCancel: true, downloadURI: null });
+      }
+      this.uploadFiles();
+    };
+    fileUpload.click();
+  }
+}
+
+export class FileUploadModel {
+  data: File;
+  state: string;
+  inProgress: boolean;
+  progress: number;
+  canRetry: boolean;
+  canCancel: boolean;
+  sub?: Observable<any>;
+  downloadURI: Observable<string>;
 }

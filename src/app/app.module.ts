@@ -34,6 +34,9 @@ import { WeaponsComponent } from './weapons/weapons.component';
 import { CreateWeaponComponent } from './weapons/create/create-weapon.component';
 import { EditWeaponComponent } from './weapons/edit/edit-weapon.component';
 import { FormWeaponComponent } from './weapons/form/form-weapon.component';
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -52,13 +55,16 @@ import { FormWeaponComponent } from './weapons/form/form-weapon.component';
     FormWeaponComponent,
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireStorageModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,

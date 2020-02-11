@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Hero } from '../dto/heroes';
-import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
-import { Observable, Subscription } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Hero} from '../dto/heroes';
+import {AngularFirestore, DocumentChangeAction, DocumentReference} from '@angular/fire/firestore';
+import {map} from 'rxjs/operators';
+import {Observable, Subscription} from 'rxjs';
 import {Abilities} from '../dto/abilities';
 
 @Injectable({
@@ -16,15 +16,18 @@ export class HeroService {
   getHeroes(): Observable<Hero[]> {
     return this.db.collection('heroes').snapshotChanges().pipe(
       map(heroes => {
-        return heroes.map((hero: any) => {
+        return heroes.map((hero: DocumentChangeAction<any>) => {
           const data = hero.payload.doc.data();
           const id = hero.payload.doc.id;
+          const referencePath = hero.payload.doc.ref.path;
           return new Hero(id, data.name, {
             health: data.health,
             strength: data.strength,
             agility: data.agility,
             attack: data.attack,
-          });
+          })
+            .setDocumentReferencePath(referencePath)
+            .setAvatarURI(data.avatarURI);
         });
       }),
     );
@@ -41,7 +44,7 @@ export class HeroService {
   }
 
   create(name: string, abilities: Abilities): Promise<DocumentReference> {
-    return this.db.collection('heroes').add({ name, ...abilities });
+    return this.db.collection('heroes').add({name, ...abilities});
   }
 
   bulkDelete(): Subscription {
@@ -58,7 +61,12 @@ export class HeroService {
         const data = hero.payload.data() as any;
         const heroId = hero.payload.id;
 
-        return new Hero(heroId, data.name, { strength: data.strength, health: data.health, attack: data.attack, agility: data.agility });
+        return new Hero(heroId, data.name, {
+          strength: data.strength,
+          health: data.health,
+          attack: data.attack,
+          agility: data.agility
+        }).setAvatarURI(data.avatarURI);
       }),
     );
   }

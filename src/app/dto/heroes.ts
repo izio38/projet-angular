@@ -4,6 +4,8 @@ export class Hero {
   id: string;
   name: string;
   abilities: Abilities;
+  documentReferencePath: string = null;
+  avatarURI: string;
 
   constructor(id: string, name: string, abilities: Abilities) {
     this.id = id;
@@ -30,7 +32,8 @@ export class Hero {
       agility: this.abilities.agility,
       attack: this.abilities.attack,
       health: this.abilities.health,
-      strength: this.abilities.strength
+      strength: this.abilities.strength,
+      avatarURI: this.avatarURI,
     };
   }
 
@@ -57,6 +60,24 @@ export class Hero {
   setHealth(health: number): Hero {
     this.abilities.health = health;
     return this;
+  }
+
+  setDocumentReferencePath(referencePath: string): Hero {
+    this.documentReferencePath = referencePath;
+    return this;
+  }
+
+  setAvatarURI(avatarURI: string): Hero {
+    this.avatarURI = avatarURI;
+    return this;
+  }
+
+  getAvatarURI(): string {
+    return this.avatarURI;
+  }
+
+  getDocumentReferencePath(): string {
+    return this.documentReferencePath;
   }
 
 }
