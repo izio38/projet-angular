@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Hero, Abilities } from '../dto/heroes';
+import { Hero } from '../dto/heroes';
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
+import {Abilities} from '../dto/abilities';
 
 @Injectable({
   providedIn: 'root',

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFirestore, DocumentReference} from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
 import {Observable, Subscription} from 'rxjs';
@@ -9,7 +9,8 @@ import {Weapon} from '../dto/weapons';
 })
 export class WeaponService {
 
-  constructor(private readonly db: AngularFirestore) { }
+  constructor(private readonly db: AngularFirestore) {
+  }
 
   getWeapons(): Observable<Weapon[]> {
     return this.db.collection('weapons').snapshotChanges().pipe(
@@ -17,7 +18,12 @@ export class WeaponService {
         return weapons.map((weapon: any) => {
           const data = weapon.payload.doc.data();
           const weaponId = weapon.payload.doc.id;
-          return new Weapon(weaponId, data.name, {attack: data.attack, strength: data.strength, health: data.strength, agility: data.agility});
+          return new Weapon(weaponId, data.name, {
+            attack: data.attack,
+            strength: data.strength,
+            health: data.strength,
+            agility: data.agility
+          });
         });
       }),
     );
