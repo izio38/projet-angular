@@ -43,8 +43,8 @@ export class HeroService {
     );
   }
 
-  create(name: string, abilities: Abilities): Promise<DocumentReference> {
-    return this.db.collection('heroes').add({name, ...abilities});
+  create(name: string, abilities: Abilities, avatarURI: string): Promise<DocumentReference> {
+    return this.db.collection('heroes').add({name, ...abilities, avatarURI});
   }
 
   bulkDelete(): Subscription {

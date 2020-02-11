@@ -32,7 +32,7 @@ export class HeroFormComponent implements OnInit, AfterViewInit {
 
   heroForm: FormGroup;
 
-  uploadTextState = 'Ajouter une image';
+  uploadTextState = 'Ajouter un avatar';
   uploadPercent: Observable<number>;
   imageDownloadURI: string = null;
 
@@ -66,6 +66,7 @@ export class HeroFormComponent implements OnInit, AfterViewInit {
       );
       if (this.hero.avatarURI) {
         this.imageDownloadURI = this.hero.avatarURI;
+        this.uploadTextState = 'Changer l\'avatar';
       }
     }
 

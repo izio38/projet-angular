@@ -1,6 +1,5 @@
-
 <form fxFlex="60%" fxLayout="column" fxFlex.lt-md="100%" [formGroup]="heroForm">
-  <img style="width: 250px; display: block; margin: auto; border-radius: 125px; margin-bottom: 12px; margin-top: 12px;" *ngIf="imageDownloadURI" [src]="imageDownloadURI">
+  <img style="height: 250px; display: block; margin: auto; border-radius: 125px; margin-bottom: 12px; margin-top: 12px;" *ngIf="imageDownloadURI" [src]="imageDownloadURI">
   <mat-form-field>
     <input id="nameInput" matInput placeholder="Entrez le nom du héro" [formControl]="heroForm.controls.name" required>
     <mat-error *ngIf="heroForm.get('name').hasError('minlength')">Le nom doit comporter 3 caractères.</mat-error>
@@ -65,4 +64,5 @@
 
   <button class="btn btn-success" (click)="submitForm()"
           [disabled]="!heroForm.valid">{{ isCreationMode ? 'Créer' : 'Modifier'}}</button>
+
 </form>
