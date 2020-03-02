@@ -10,8 +10,8 @@ import {Router} from '@angular/router';
 export class CreateHeroComponent {
   constructor(private heroService: HeroService, private router: Router) {}
 
-  async onCreateSubmitted({name, health, strength, agility, attack, avatarURI}) {
-    await this.heroService.create(name, {health, strength, agility, attack}, avatarURI);
+  async onCreateSubmitted({name, health, strength, agility, attack, avatarURI, weaponId}) {
+    await this.heroService.create(name, {health, strength, agility, attack}, avatarURI, weaponId);
 
     await this.router.navigate(['/heroes']);
   }

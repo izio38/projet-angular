@@ -27,7 +27,8 @@ export class HeroService {
             attack: data.attack,
           })
             .setDocumentReferencePath(referencePath)
-            .setAvatarURI(data.avatarURI);
+            .setAvatarURI(data.avatarURI)
+            .setWeaponId(data.weaponId);
         });
       }),
     );
@@ -43,8 +44,8 @@ export class HeroService {
     );
   }
 
-  create(name: string, abilities: Abilities, avatarURI: string): Promise<DocumentReference> {
-    return this.db.collection('heroes').add({name, ...abilities, avatarURI});
+  create(name: string, abilities: Abilities, avatarURI: string, weaponId: string): Promise<DocumentReference> {
+    return this.db.collection('heroes').add({name, ...abilities, avatarURI, weaponId});
   }
 
   bulkDelete(): Subscription {
@@ -66,7 +67,9 @@ export class HeroService {
           health: data.health,
           attack: data.attack,
           agility: data.agility
-        }).setAvatarURI(data.avatarURI);
+        })
+          .setAvatarURI(data.avatarURI)
+          .setWeaponId(data.weaponId);
       }),
     );
   }

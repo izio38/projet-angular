@@ -1,46 +1,6 @@
 <form fxFlex="60%" fxLayout="column" fxFlex.lt-md="100%" [formGroup]="heroForm">
-  <img style="height: 250px; display: block; margin: auto; border-radius: 125px; margin-bottom: 12px; margin-top: 12px;" *ngIf="imageDownloadURI" [src]="imageDownloadURI">
-  <mat-form-field>
-    <input id="nameInput" matInput placeholder="Entrez le nom du héro" [formControl]="heroForm.controls.name" required>
-    <mat-error *ngIf="heroForm.get('name').hasError('minlength')">Le nom doit comporter 3 caractères.</mat-error>
-    <mat-error *ngIf="heroForm.get('name').hasError('required')">Un nom est requis.</mat-error>
-  </mat-form-field>
-
-  <h2 *ngIf="hero">Les points ( {{ hero.getRemainingAbilityPoints() }} restants )</h2>
-
-  <mat-form-field>
-    <input matInput type="number" placeholder="Entrez l'agilité du héro" [formControl]="heroForm.controls.agility" required>
-    <mat-error *ngIf="heroForm.get('agility').hasError('required')">Une valeur est requise.</mat-error>
-    <mat-error *ngIf="heroForm.get('agility').hasError('min')">La valeur minimale est 1.</mat-error>
-    <mat-error *ngIf="heroForm.get('agility').hasError('max')">La valeur maximale est 40.</mat-error>
-  </mat-form-field>
-
-  <mat-form-field>
-    <input matInput type="number" placeholder="Entrez l'attaque du héro" [formControl]="heroForm.controls.attack" required>
-    <mat-error *ngIf="heroForm.get('attack').hasError('required')">Une valeur est requise.</mat-error>
-    <mat-error *ngIf="heroForm.get('attack').hasError('min')">La valeur minimale est 1.</mat-error>
-    <mat-error *ngIf="heroForm.get('attack').hasError('max')">La valeur maximale est 40.</mat-error>
-  </mat-form-field>
-
-  <mat-form-field>
-    <input matInput type="number" placeholder="Entrez la vie du héro" [formControl]="heroForm.controls.health" required>
-    <mat-error *ngIf="heroForm.get('health').hasError('required')">Une valeur est requise.</mat-error>
-    <mat-error *ngIf="heroForm.get('health').hasError('min')">La valeur minimale est 1.</mat-error>
-    <mat-error *ngIf="heroForm.get('health').hasError('max')">La valeur maximale est 40.</mat-error>
-  </mat-form-field>
-
-
-  <mat-form-field>
-    <input matInput type="number" placeholder="Entrez la force du héro" [formControl]="heroForm.controls.strength" required>
-    <mat-error *ngIf="heroForm.get('strength').hasError('required')">Une valeur est requise.</mat-error>
-    <mat-error *ngIf="heroForm.get('strength').hasError('min')">La valeur minimale est 1.</mat-error>
-    <mat-error *ngIf="heroForm.get('strength').hasError('max')">La valeur maximale est 40.</mat-error>
-  </mat-form-field>
-
-
-  <mat-error *ngIf="heroForm.hasError('abilityValidator')">La somme des aptitudes doivent être inférieur à
-    40.</mat-error>
-
+  <img style="height: 250px; display: block; margin: auto; border-radius: 125px; margin-bottom: 12px; margin-top: 12px;"
+       *ngIf="imageDownloadURI" [src]="imageDownloadURI">
 
   <button mat-button color="warn" (click)="onUploadImageClicked()">
     <mat-icon>file_upload</mat-icon>
@@ -59,10 +19,67 @@
             </span>
     </li>
   </ul>
+
+  <mat-form-field>
+    <input id="nameInput" matInput placeholder="Entrez le nom du héro" [formControl]="heroForm.controls.name" required>
+    <mat-error *ngIf="heroForm.get('name').hasError('minlength')">Le nom doit comporter 3 caractères.</mat-error>
+    <mat-error *ngIf="heroForm.get('name').hasError('required')">Un nom est requis.</mat-error>
+  </mat-form-field>
+
+  <h2 *ngIf="hero">Les points ( {{ hero.getRemainingAbilityPoints() }} restants )</h2>
+
+  <mat-form-field>
+    <input matInput type="number" placeholder="Entrez l'agilité du héro" [formControl]="heroForm.controls.agility"
+           required>
+    <mat-error *ngIf="heroForm.get('agility').hasError('required')">Une valeur est requise.</mat-error>
+    <mat-error *ngIf="heroForm.get('agility').hasError('min')">La valeur minimale est 1.</mat-error>
+    <mat-error *ngIf="heroForm.get('agility').hasError('max')">La valeur maximale est 40.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="number" placeholder="Entrez l'attaque du héro" [formControl]="heroForm.controls.attack"
+           required>
+    <mat-error *ngIf="heroForm.get('attack').hasError('required')">Une valeur est requise.</mat-error>
+    <mat-error *ngIf="heroForm.get('attack').hasError('min')">La valeur minimale est 1.</mat-error>
+    <mat-error *ngIf="heroForm.get('attack').hasError('max')">La valeur maximale est 40.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="number" placeholder="Entrez la vie du héro" [formControl]="heroForm.controls.health" required>
+    <mat-error *ngIf="heroForm.get('health').hasError('required')">Une valeur est requise.</mat-error>
+    <mat-error *ngIf="heroForm.get('health').hasError('min')">La valeur minimale est 1.</mat-error>
+    <mat-error *ngIf="heroForm.get('health').hasError('max')">La valeur maximale est 40.</mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <input matInput type="number" placeholder="Entrez la force du héro" [formControl]="heroForm.controls.strength"
+           required>
+    <mat-error *ngIf="heroForm.get('strength').hasError('required')">Une valeur est requise.</mat-error>
+    <mat-error *ngIf="heroForm.get('strength').hasError('min')">La valeur minimale est 1.</mat-error>
+    <mat-error *ngIf="heroForm.get('strength').hasError('max')">La valeur maximale est 40.</mat-error>
+  </mat-form-field>
+
+
+  <mat-error *ngIf="heroForm.hasError('abilityValidator')">La somme des aptitudes doivent être inférieur à
+    40.
+  </mat-error>
+
+
+  <h2>L'arme</h2>
+
+  <mat-form-field *ngIf="weapons">
+    <mat-label>Choisissez l'arme</mat-label>
+    <mat-select [formControl]="heroForm.controls.weapon">
+      <mat-option *ngFor="let weapon of weapons" value="{{weapon.id}}">{{weapon.name}}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="heroForm.get('weapon').hasError('required')">Vous devez choisir une arme.</mat-error>
+  </mat-form-field>
+  
   <input type="file" id="fileUpload" name="fileUpload"
          accept="image/*" style="display:none;"/>
 
-  <button class="btn btn-success" (click)="submitForm()"
+  <button class="mt-2 btn btn-success" (click)="submitForm()"
           [disabled]="!heroForm.valid">{{ isCreationMode ? 'Créer' : 'Modifier'}}</button>
 
 </form>

@@ -7,7 +7,9 @@ import {Observable, of} from 'rxjs';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {catchError, finalize, map} from 'rxjs/operators';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import { uuid } from 'uuidv4';
+import {uuid} from 'uuidv4';
+import {WeaponService} from '../../services/weapon.service';
+import {Weapon} from '../../dto/weapons';
 
 @Component({
   selector: 'app-hero-form',
@@ -15,9 +17,9 @@ import { uuid } from 'uuidv4';
   styleUrls: ['./hero-form.component.css'],
   animations: [
     trigger('fadeInOut', [
-      state('in', style({ opacity: 100 })),
+      state('in', style({opacity: 100})),
       transition('* => void', [
-        animate(300, style({ opacity: 0 }))
+        animate(300, style({opacity: 0}))
       ])
     ])
   ]
@@ -36,12 +38,18 @@ export class HeroFormComponent implements OnInit, AfterViewInit {
   uploadPercent: Observable<number>;
   imageDownloadURI: string = null;
 
+  weapons: Weapon[];
+
   files: Array<FileUploadModel> = [];
 
-  constructor(private readonly renderer: Renderer2, private storage: AngularFireStorage) {
+  constructor(private readonly renderer: Renderer2, private storage: AngularFireStorage, private readonly weaponService: WeaponService) {
   }
 
   ngOnInit() {
+    this.weaponService.getWeapons().subscribe((weapons) => {
+      this.weapons = weapons;
+    });
+
     if (this.isCreationMode) {
       this.heroForm = new FormGroup(
         {
@@ -50,6 +58,7 @@ export class HeroFormComponent implements OnInit, AfterViewInit {
           attack: new FormControl(1, [Validators.min(1), Validators.max(40)]),
           health: new FormControl(1, [Validators.min(1), Validators.max(40)]),
           strength: new FormControl(1, [Validators.min(1), Validators.max(40)]),
+          weapon: new FormControl(null, [Validators.required])
         },
         {validators: abilityValidator}
       );
@@ -61,6 +70,7 @@ export class HeroFormComponent implements OnInit, AfterViewInit {
           attack: new FormControl(this.hero.abilities.attack, [Validators.min(1), Validators.max(40)]),
           health: new FormControl(this.hero.abilities.health, [Validators.min(1), Validators.max(40)]),
           strength: new FormControl(this.hero.abilities.strength, [Validators.min(1), Validators.max(40)]),
+          weapon: new FormControl(this.hero.weaponId, [Validators.required])
         },
         {validators: abilityValidator}
       );
@@ -96,11 +106,12 @@ export class HeroFormComponent implements OnInit, AfterViewInit {
   async submitForm() {
     const {health, strength, attack, agility}: Abilities = this.heroForm.value;
     const avatarURI = this.imageDownloadURI;
+    const weaponId = this.heroForm.value.weapon;
 
     if (this.isCreationMode) {
-      this.createRequested.emit({avatarURI, health, strength, attack, agility, name: this.heroForm.value.name});
+      this.createRequested.emit({avatarURI, health, strength, attack, agility, name: this.heroForm.value.name, weaponId});
     } else {
-      this.editRequested.emit({avatarURI, health, strength, attack, agility, name: this.heroForm.value.name});
+      this.editRequested.emit({avatarURI, health, strength, attack, agility, name: this.heroForm.value.name, weaponId});
     }
   }
 
@@ -111,6 +122,22 @@ export class HeroFormComponent implements OnInit, AfterViewInit {
   retryFile(file: FileUploadModel) {
     this.uploadFile(file);
     file.canRetry = false;
+  }
+
+  onUploadImageClicked() {
+    const fileUpload = document.getElementById('fileUpload') as HTMLInputElement;
+    fileUpload.onchange = () => {
+      // tslint:disable-next-line:prefer-for-of
+      for (let index = 0; index < fileUpload.files.length; index++) {
+        const file = fileUpload.files[index];
+        this.files.push({
+          data: file, state: 'in',
+          inProgress: false, progress: 0, canRetry: false, canCancel: true, downloadURI: null
+        });
+      }
+      this.uploadFiles();
+    };
+    fileUpload.click();
   }
 
   private uploadFile(file: FileUploadModel) {
@@ -140,11 +167,11 @@ export class HeroFormComponent implements OnInit, AfterViewInit {
         return file.progress = Math.round(percent);
       }),
       catchError((error) => {
-        file.inProgress = false;
-        file.canRetry = true;
-        return of(`${file.data.name} upload failed.`);
-      }
-    ));
+          file.inProgress = false;
+          file.canRetry = true;
+          return of(`${file.data.name} upload failed.`);
+        }
+      ));
   }
 
   private uploadFiles() {
@@ -161,19 +188,6 @@ export class HeroFormComponent implements OnInit, AfterViewInit {
     if (index > -1) {
       this.files.splice(index, 1);
     }
-  }
-
-  onUploadImageClicked() {
-    const fileUpload = document.getElementById('fileUpload') as HTMLInputElement;
-    fileUpload.onchange = () => {
-      for (let index = 0; index < fileUpload.files.length; index++) {
-        const file = fileUpload.files[index];
-        this.files.push({ data: file, state: 'in',
-          inProgress: false, progress: 0, canRetry: false, canCancel: true, downloadURI: null });
-      }
-      this.uploadFiles();
-    };
-    fileUpload.click();
   }
 }
 

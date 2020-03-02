@@ -16,8 +16,8 @@ $toolbar-title-padding: 32px !default;
 
 mat-sidenav-container {
   position: fixed;
-  height: 100%;
-  min-height: 100%;
+  height: calc(100% - 56px);
+  min-height: calc(100% - 56px);
   width: 100%;
   min-width: 100%;
 }
