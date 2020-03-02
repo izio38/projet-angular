@@ -1,4 +1,7 @@
 <div *ngIf="weapon" class="container mt-4">
   <h1>Edition de l'arme {{ weapon.name }}</h1>
-  <app-form-weapon  [weapon]="weapon" (editRequested)="onEditRequested($event)"></app-form-weapon>
+  <app-form-weapon
+    [weapon]="weapon"
+    (editRequested)="onEditRequested($event)"
+  ></app-form-weapon>
 </div>

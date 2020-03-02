@@ -1,26 +1,31 @@
 <mat-toolbar color="primary">
-
   <mat-toolbar-row>
-
     <button mat-icon-button (click)="toggleSidenav.emit()">
       <mat-icon>menu</mat-icon>
     </button>
 
     <span class="brand" (click)="toggleSidenav.emit()"> ToH </span>
 
-    <div class="nav-items" fxFlex fxLayout fxShow fxHide.xs="true" fxHide.md="false">
-      <a *ngFor="let item of routes"
-         mat-list-item
-         [routerLink]="[item.path]"
-         routerLinkActive="list-item-active">
-        {{item.name}}
+    <div
+      class="nav-items"
+      fxFlex
+      fxLayout
+      fxShow
+      fxHide.xs="true"
+      fxHide.md="false"
+    >
+      <a
+        *ngFor="let item of routes"
+        mat-list-item
+        [routerLink]="[item.path]"
+        routerLinkActive="list-item-active"
+      >
+        {{ item.name }}
       </a>
     </div>
 
     <div fxFlex fxLayout fxLayoutAlign="flex-end">
-
       <ul fxLayout fxLayoutGap="20px">
-
         <li fxHide.xs>
           <button mat-icon-button>
             <mat-icon>settings</mat-icon>
@@ -38,11 +43,7 @@
             <mat-icon>person_outline</mat-icon>
           </button>
         </li>
-
       </ul>
-
     </div>
-
   </mat-toolbar-row>
-
 </mat-toolbar>

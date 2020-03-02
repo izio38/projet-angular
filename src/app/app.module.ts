@@ -15,7 +15,7 @@ import { CreateHeroComponent } from './heroes/create-hero/create-hero.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationBarComponent } from './core/navigation-bar/navigation-bar.component';
 import { SideNavComponent } from './core/side-nav/side-nav.component';
-import {HeroFormComponent} from './heroes/form/hero-form.component';
+import { HeroFormComponent } from './heroes/form/hero-form.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -24,21 +24,20 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { WeaponsComponent } from './weapons/weapons.component';
 import { CreateWeaponComponent } from './weapons/create/create-weapon.component';
 import { EditWeaponComponent } from './weapons/edit/edit-weapon.component';
 import { FormWeaponComponent } from './weapons/form/form-weapon.component';
-import {AngularFireStorageModule} from '@angular/fire/storage';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatSelectModule} from '@angular/material/select';
-
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -55,31 +54,31 @@ import {MatSelectModule} from '@angular/material/select';
     EditWeaponComponent,
     FormWeaponComponent,
   ],
-    imports: [
-        BrowserAnimationsModule,
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFirestoreModule,
-        AngularFireStorageModule,
-        ReactiveFormsModule,
-        MatProgressBarModule,
-        MatProgressSpinnerModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatListModule,
-        MatButtonModule,
-        MatIconModule,
-        FlexLayoutModule,
-        MatMenuModule,
-        MatExpansionModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSnackBarModule,
-        MatSelectModule
-    ],
+  imports: [
+    BrowserAnimationsModule,
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    ReactiveFormsModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatButtonModule,
+    MatIconModule,
+    FlexLayoutModule,
+    MatMenuModule,
+    MatExpansionModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatSelectModule,
+  ],
   providers: [HeroService],
   bootstrap: [AppComponent],
 })

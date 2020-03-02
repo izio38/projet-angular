@@ -1,7 +1,11 @@
 <div class="container mt-4">
   <h1>Heros les plus marquants</h1>
   <mat-list role="list">
-    <mat-list-item *ngFor="let hero of betterHeroes | async; let i = index;" role="listitem" (click)="goToEditHero(hero)">
+    <mat-list-item
+      *ngFor="let hero of betterHeroes | async; let i = index"
+      role="listitem"
+      (click)="goToEditHero(hero)"
+    >
       {{ i }} > {{ hero.name }} - {{ hero.getTotalAbilityPoints() }} points
     </mat-list-item>
   </mat-list>

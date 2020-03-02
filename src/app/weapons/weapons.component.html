@@ -1,13 +1,30 @@
 <div class="container mt-4">
   <h1>Liste des armes</h1>
   <div class="mb-4 mt-4">
-    <button [routerLink]="'/weapon/create'" class="mr-2" mat-raised-button color="accent">Nouvelle</button>
-    <button (click)="bulkDelete()" mat-raised-button color="warn">Tout supprimer</button>
+    <button
+      [routerLink]="'/weapon/create'"
+      class="mr-2"
+      mat-raised-button
+      color="accent"
+    >
+      Nouvelle
+    </button>
+    <button (click)="bulkDelete()" mat-raised-button color="warn">
+      Tout supprimer
+    </button>
   </div>
   <mat-list role="list">
-    <mat-list-item *ngFor="let weapon of weapons$ | async;" role="listitem">
-      <p mat-line (click)="goToEditWeapon(weapon)" style="padding-top: 6px; padding-bottom: 6px;"> {{ weapon.name }} </p>
-      <button mat-button color="warn" (click)="deleteWeapon(weapon)" > Supprimer </button>
+    <mat-list-item *ngFor="let weapon of weapons$ | async" role="listitem">
+      <p
+        mat-line
+        (click)="goToEditWeapon(weapon)"
+        style="padding-top: 6px; padding-bottom: 6px;"
+      >
+        {{ weapon.name }}
+      </p>
+      <button mat-button color="warn" (click)="deleteWeapon(weapon)">
+        Supprimer
+      </button>
     </mat-list-item>
   </mat-list>
 </div>

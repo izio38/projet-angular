@@ -1,34 +1,33 @@
-<app-navigation-bar [routes]="routes" (toggleSidenav)="navigationSidenav.toggle()"></app-navigation-bar>
+<app-navigation-bar
+  [routes]="routes"
+  (toggleSidenav)="navigationSidenav.toggle()"
+></app-navigation-bar>
 
 <mat-sidenav-container>
-
   <mat-sidenav #navigationSidenav mode="over">
-
     <mat-toolbar>
       <mat-toolbar-row>
-        <h2> Navigation </h2>
+        <h2>Navigation</h2>
       </mat-toolbar-row>
     </mat-toolbar>
 
     <mat-nav-list>
-
-      <a *ngFor="let item of routes"
-         mat-list-item
-         (click)="navigationSidenav.close()"
-         [routerLink]="[item.path]"
-         routerLinkActive="list-item-active">
+      <a
+        *ngFor="let item of routes"
+        mat-list-item
+        (click)="navigationSidenav.close()"
+        [routerLink]="[item.path]"
+        routerLinkActive="list-item-active"
+      >
         <mat-icon matListIcon> {{ item.icon }} </mat-icon>
-        {{item.name}}
+        {{ item.name }}
       </a>
 
       <mat-divider></mat-divider>
-
     </mat-nav-list>
-
   </mat-sidenav>
 
-  <mat-sidenav-content >
+  <mat-sidenav-content>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
-
 </mat-sidenav-container>

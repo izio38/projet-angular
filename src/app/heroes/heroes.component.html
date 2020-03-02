@@ -1,13 +1,35 @@
 <div class="container mt-4 mb-4">
   <h1>Liste des heros</h1>
   <div class="mb-4 mt-4">
-    <button [routerLink]="'/hero/create'" class="mr-2" mat-raised-button color="accent">Nouveau</button>
-    <button (click)="bulkDelete()" mat-raised-button color="warn">Tout supprimer</button>
+    <button
+      [routerLink]="'/hero/create'"
+      class="mr-2"
+      mat-raised-button
+      color="accent"
+    >
+      Nouveau
+    </button>
+    <button (click)="bulkDelete()" mat-raised-button color="warn">
+      Tout supprimer
+    </button>
   </div>
   <mat-list role="list">
-    <mat-list-item *ngFor="let hero of heroes$ | async;" role="listitem">
-      <p mat-line (click)="goToEditHero(hero)" style="padding-top: 6px; padding-bottom: 6px;"> <img style="padding-right: 12px;height: 50px; border-radius: 25px;" *ngIf="hero.avatarURI" [src]="hero.avatarURI"/> {{ hero.name }} - {{ hero.getTotalAbilityPoints() }} points</p>
-      <button mat-button color="warn" (click)="deleteHero(hero)" > Supprimer </button>
+    <mat-list-item *ngFor="let hero of heroes$ | async" role="listitem">
+      <p
+        mat-line
+        (click)="goToEditHero(hero)"
+        style="padding-top: 6px; padding-bottom: 6px;"
+      >
+        <img
+          style="padding-right: 12px;height: auto; width: 50px; border-radius: 25px;"
+          *ngIf="hero.avatarURI"
+          [src]="hero.avatarURI"
+        />
+        {{ hero.name }} - {{ hero.getTotalAbilityPoints() }} points
+      </p>
+      <button mat-button color="warn" (click)="deleteHero(hero)">
+        Supprimer
+      </button>
     </mat-list-item>
   </mat-list>
 </div>

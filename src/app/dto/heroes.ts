@@ -1,4 +1,4 @@
-import {Abilities} from './abilities';
+import { Abilities } from './abilities';
 
 export class Hero {
   id: string;
@@ -35,7 +35,7 @@ export class Hero {
       health: this.abilities.health,
       strength: this.abilities.strength,
       avatarURI: this.avatarURI,
-      weaponId: this.weaponId
+      weaponId: this.weaponId,
     };
   }
 
@@ -86,5 +86,4 @@ export class Hero {
   getDocumentReferencePath(): string {
     return this.documentReferencePath;
   }
-
 }

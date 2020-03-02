@@ -1,4 +1,7 @@
 <div *ngIf="hero" class="container pt-4 pb-4">
   <h1>Edition du héro {{ hero.name }}</h1>
-  <app-hero-form  [hero]="hero" (editRequested)="onEditRequested($event)"></app-hero-form>
+  <app-hero-form
+    [hero]="hero"
+    (editRequested)="onEditRequested($event)"
+  ></app-hero-form>
 </div>

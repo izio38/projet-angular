@@ -1,4 +1,4 @@
-import {Abilities} from './abilities';
+import { Abilities } from './abilities';
 
 export class Weapon {
   id: string;
@@ -13,7 +13,12 @@ export class Weapon {
   }
 
   static fromValues(values: any) {
-    return new Weapon('', values.name, {agility: values.agility, attack: values.attack, health: values.health, strength: values.strength});
+    return new Weapon('', values.name, {
+      agility: values.agility,
+      attack: values.attack,
+      health: values.health,
+      strength: values.strength,
+    });
   }
 
   getTotalAbilityPoints(): number {
@@ -65,7 +70,7 @@ export class Weapon {
       agility: this.abilities.agility,
       strength: this.abilities.strength,
       health: this.abilities.health,
-      attack: this.abilities.attack
+      attack: this.abilities.attack,
     };
   }
 

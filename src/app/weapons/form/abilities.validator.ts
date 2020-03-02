@@ -8,5 +8,7 @@ export const abilityValidator: ValidatorFn = (
   const strength = parseInt(control.get('strength').value, 10);
   const health = parseInt(control.get('health').value, 10);
 
-  return (agility + attack + strength + health) !== 0 ? { abilityValidator: true } : null;
+  return agility + attack + strength + health !== 0
+    ? { abilityValidator: true }
+    : null;
 };
