@@ -127,9 +127,18 @@
 
   <h2>L'arme</h2>
 
+  <img
+    style="height: 250px; display: block; margin: auto; border-radius: 125px; margin-bottom: 12px; margin-top: 12px;"
+    *ngIf="selectedWeapon"
+    [src]="selectedWeapon.avatarURI"
+  />
+
   <mat-form-field *ngIf="weapons">
     <mat-label>Choisissez l'arme</mat-label>
-    <mat-select [formControl]="heroForm.controls.weapon">
+    <mat-select
+      [formControl]="heroForm.controls.weapon"
+      (selectionChange)="onWeaponSelectChanged($event)"
+    >
       <mat-option *ngFor="let weapon of weapons" value="{{ weapon.id }}">{{
         weapon.name
       }}</mat-option>

@@ -50,6 +50,7 @@ export class HeroFormComponent implements OnInit, AfterViewInit {
   imageDownloadURI: string = null;
 
   weapons: Weapon[];
+  selectedWeapon: Weapon;
 
   files: Array<FileUploadModel> = [];
 
@@ -62,6 +63,12 @@ export class HeroFormComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.weaponService.getWeapons().subscribe(weapons => {
       this.weapons = weapons;
+      const heroWeapon = this.weapons.find(
+        weapon => this.hero.weaponId === weapon.id
+      );
+      if (heroWeapon) {
+        this.selectedWeapon = heroWeapon;
+      }
     });
 
     if (this.isCreationMode) {
@@ -102,7 +109,7 @@ export class HeroFormComponent implements OnInit, AfterViewInit {
       );
       if (this.hero.avatarURI) {
         this.imageDownloadURI = this.hero.avatarURI;
-        this.uploadTextState = "Changer l'avatar";
+        this.uploadTextState = 'Changer l\'avatar';
       }
     }
 
@@ -245,6 +252,17 @@ export class HeroFormComponent implements OnInit, AfterViewInit {
     const index = this.files.indexOf(file);
     if (index > -1) {
       this.files.splice(index, 1);
+    }
+  }
+
+  onWeaponSelectChanged(event) {
+    const selectedWeaponId: string = event.value;
+    const selectedWeapon = this.weapons.find(
+      weapon => weapon.id === selectedWeaponId
+    );
+
+    if (selectedWeapon) {
+      this.selectedWeapon = selectedWeapon;
     }
   }
 }

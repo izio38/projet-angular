@@ -25,7 +25,9 @@ export class WeaponService {
               strength: data.strength,
               health: data.strength,
               agility: data.agility,
-            }).setDocumentReferencePath(referencePath);
+            })
+              .setAvatarURI(data.avatarURI)
+              .setDocumentReferencePath(referencePath);
           });
         })
       );
@@ -74,7 +76,7 @@ export class WeaponService {
             health: data.health,
             strength: data.strength,
             attack: data.attack,
-          });
+          }).setAvatarURI(data.avatarURI);
         })
       );
   }

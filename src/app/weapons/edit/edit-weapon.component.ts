@@ -41,6 +41,7 @@ export class EditWeaponComponent implements OnInit {
       .setAgility(weaponValues.agility)
       .setAttack(weaponValues.attack)
       .setHealth(weaponValues.health)
+      .setAvatarURI(weaponValues.avatarURI)
       .setStrength(weaponValues.strength);
     await this.weaponService.update(this.weapon);
 

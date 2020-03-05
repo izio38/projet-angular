@@ -5,6 +5,7 @@ export class Weapon {
   name: string;
   abilities: Abilities;
   documentReferencePath: string = null;
+  avatarURI: string = null;
 
   constructor(id: string, name: string, abilities: Abilities) {
     this.id = id;
@@ -71,6 +72,7 @@ export class Weapon {
       strength: this.abilities.strength,
       health: this.abilities.health,
       attack: this.abilities.attack,
+      avatarURI: this.avatarURI,
     };
   }
 
@@ -81,5 +83,10 @@ export class Weapon {
 
   getDocumentReferencePath(): string {
     return this.documentReferencePath;
+  }
+
+  setAvatarURI(avatarURI: string): Weapon {
+    this.avatarURI = avatarURI;
+    return this;
   }
 }
