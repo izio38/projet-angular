@@ -26,8 +26,5 @@ jobs:
     - run: npm install -g @angular/cli
     - run: npm i
 
-    # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
-      run: |
-        ng build --no-progress --aot --prod --base-href /~billotr/info7/
-        sshpass -p '${{ secrets.SSH_PASSWORD }}' scp -r `pwd`/dist/toh-billot/* billotr@transit.iut2.upmf-grenoble.fr:public_html/info7/
+    - run: ng build --no-progress --aot --prod --base-href /~billotr/info7/
+    - run: sshpass -p '${{ secrets.SSH_PASSWORD }}' scp -r `pwd`/dist/toh-billot/* billotr@transit.iut2.upmf-grenoble.fr:public_html/info7/
