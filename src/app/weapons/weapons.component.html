@@ -20,6 +20,11 @@
         (click)="goToEditWeapon(weapon)"
         style="padding-top: 6px; padding-bottom: 6px;"
       >
+        <img
+          style="padding-right: 12px;height: auto; width: 50px; border-radius: 25px;"
+          *ngIf="weapon.avatarURI"
+          [src]="weapon.avatarURI"
+        />
         {{ weapon.name }}
       </p>
       <button mat-button color="warn" (click)="deleteWeapon(weapon)">
