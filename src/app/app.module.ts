@@ -38,6 +38,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -78,6 +80,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatSnackBarModule,
     MatSelectModule,
+    MatTableModule,
+    MatSortModule,
   ],
   providers: [HeroService],
   bootstrap: [AppComponent],

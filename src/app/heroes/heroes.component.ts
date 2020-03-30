@@ -11,6 +11,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./heroes.component.scss'],
 })
 export class HeroesComponent implements OnInit {
+  displayedColumns: string[] = [
+    'avatarURI',
+    'name',
+    'health',
+    'agility',
+    'strength',
+    'total',
+    'actions',
+  ];
   heroes$: Observable<Hero[]>;
 
   constructor(

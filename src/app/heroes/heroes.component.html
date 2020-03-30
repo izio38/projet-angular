@@ -13,23 +13,100 @@
       Tout supprimer
     </button>
   </div>
-  <mat-list role="list">
-    <mat-list-item *ngFor="let hero of heroes$ | async" role="listitem">
-      <p
-        mat-line
-        (click)="goToEditHero(hero)"
-        style="padding-top: 6px; padding-bottom: 6px;"
-      >
-        <img
-          style="padding-right: 12px;height: auto; width: 50px; border-radius: 25px;"
-          *ngIf="hero.avatarURI"
-          [src]="hero.avatarURI"
-        />
-        {{ hero.name }} - {{ hero.getTotalAbilityPoints() }} points
-      </p>
-      <button mat-button color="warn" (click)="deleteHero(hero)">
-        Supprimer
-      </button>
-    </mat-list-item>
-  </mat-list>
+  <div class="example-table-container">
+    <table
+      mat-table
+      [dataSource]="heroes$"
+      class="example-table"
+      matSort
+      matSortActive="name"
+      matSortDisableClear
+      matSortDirection="desc"
+    >
+      <!-- IMAGE URI Column -->
+      <ng-container matColumnDef="avatarURI">
+        <th mat-header-cell *matHeaderCellDef>Avatar</th>
+        <td mat-cell *matCellDef="let row">
+          <img
+            style="padding-right: 12px;height: auto; width: 50px; border-radius: 25px;"
+            *ngIf="row.avatarURI"
+            [src]="row.avatarURI"
+          />
+        </td>
+      </ng-container>
+
+      <!-- NAME Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+          Nom
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+      </ng-container>
+
+      <!-- Agility Column -->
+      <ng-container matColumnDef="agility">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+          Agilité
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.abilities.agility }}</td>
+      </ng-container>
+
+      <!-- ATTACK Column -->
+      <ng-container matColumnDef="attack">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+          Attaque
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.abilities.attack }}</td>
+      </ng-container>
+
+      <!-- STRENGTH Column -->
+      <ng-container matColumnDef="strength">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+          Force
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.abilities.strength }}</td>
+      </ng-container>
+
+      <!-- HEALTH Column -->
+      <ng-container matColumnDef="health">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+          Santé
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.abilities.health }}</td>
+      </ng-container>
+
+      <!-- TOTAL Column -->
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+          Total
+        </th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.getTotalAbilityPoints() }}
+        </td>
+      </ng-container>
+
+      <!-- ACTIONS Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>
+          Actions
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <button
+            mat-button
+            mat-raised-button
+            color="accent"
+            (click)="goToEditHero(row)"
+          >
+            Voir
+          </button>
+          <button mat-button color="warn" (click)="deleteHero(row)">
+            Supprimer
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
 </div>

@@ -60,3 +60,14 @@ mat-list-item {
   margin-top: 6px;
   margin-bottom: 6px;
 }
+
+table {
+  width: 100%;
+}
+
+.table-container{
+  position: relative;
+  max-height: 600px;
+  overflow: auto;
+}
+
