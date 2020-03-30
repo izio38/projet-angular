@@ -19,7 +19,7 @@
       [dataSource]="heroes$"
       class="example-table"
       matSort
-      matSortActive="name"
+      matSortActive="total"
       matSortDisableClear
       matSortDirection="desc"
     >
@@ -37,7 +37,7 @@
 
       <!-- NAME Column -->
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+        <th mat-header-cell *matHeaderCellDef>
           Nom
         </th>
         <td mat-cell *matCellDef="let row">{{ row.name }}</td>

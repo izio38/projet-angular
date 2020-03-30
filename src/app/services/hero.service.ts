@@ -8,6 +8,14 @@ import {
 import { map } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { Abilities } from '../dto/abilities';
+import { Sort } from '@angular/material/sort';
+import { path } from 'ramda';
+
+interface IComparator {
+  keyPath: string[];
+  isFunction: boolean;
+  direction: string | 'asc' | 'desc';
+}
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +23,9 @@ import { Abilities } from '../dto/abilities';
 export class HeroService {
   constructor(private readonly db: AngularFirestore) {}
 
-  getHeroes(): Observable<Hero[]> {
+  getHeroes(sort?: Sort): Observable<Hero[]> {
+    const sortParameter = sort ? sort : { active: 'total', direction: 'desc' };
+
     return this.db
       .collection('heroes')
       .snapshotChanges()
@@ -35,6 +45,60 @@ export class HeroService {
               .setAvatarURI(data.avatarURI)
               .setWeaponId(data.weaponId);
           });
+        }),
+        // Sort
+        map(heroes => {
+          const sortFunction = (a: Hero, b: Hero) => {
+            const comparator: IComparator = {
+              keyPath: [sortParameter.active],
+              isFunction: false,
+              direction: sortParameter.direction,
+            };
+
+            // If it's the total Ability points
+            if (sortParameter.active === 'total') {
+              comparator.keyPath = ['getTotalAbilityPoints'];
+              comparator.isFunction = true;
+            }
+
+            // If it's one of the ability
+            if (
+              sortParameter.active === 'agility' ||
+              sortParameter.active === 'health' ||
+              sortParameter.active === 'strength' ||
+              sortParameter.active === 'attack'
+            ) {
+              comparator.keyPath = ['abilities', sortParameter.active];
+            }
+
+            // Get the actual object value
+            const keyValueA = path(comparator.keyPath, a);
+            const keyValueB = path(comparator.keyPath, b);
+
+            // If the sort is ascending
+            if (comparator.direction === 'asc') {
+              // If the sort is based on a method
+              if (comparator.isFunction) {
+                return (
+                  (a[comparator.keyPath[0]] as () => number)() -
+                  (b[comparator.keyPath[0]] as () => number)()
+                );
+              } else {
+                return (keyValueA as number) - (keyValueB as number);
+              }
+              // If the sort is descending
+            } else {
+              if (comparator.isFunction) {
+                return (
+                  (b[comparator.keyPath[0]] as () => number)() -
+                  (a[comparator.keyPath[0]] as () => number)()
+                );
+              } else {
+                return (keyValueB as number) - (keyValueA as number);
+              }
+            }
+          };
+          return heroes.sort(sortFunction);
         })
       );
   }

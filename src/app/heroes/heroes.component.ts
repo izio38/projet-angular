@@ -1,26 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Hero } from '../dto/heroes';
 import { HeroService } from '../services/hero.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
   styleUrls: ['./heroes.component.scss'],
 })
-export class HeroesComponent implements OnInit {
+export class HeroesComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
     'avatarURI',
     'name',
     'health',
     'agility',
+    'attack',
     'strength',
     'total',
     'actions',
   ];
   heroes$: Observable<Hero[]>;
+
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private readonly heroService: HeroService,
@@ -30,6 +34,13 @@ export class HeroesComponent implements OnInit {
 
   ngOnInit() {
     this.heroes$ = this.heroService.getHeroes();
+  }
+
+  ngAfterViewInit() {
+    this.sort.sortChange.subscribe(sort => {
+      console.log(sort);
+      this.heroes$ = this.heroService.getHeroes(sort);
+    });
   }
 
   bulkDelete() {
