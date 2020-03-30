@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-heroes',
@@ -23,6 +25,8 @@ export class HeroesComponent implements OnInit, AfterViewInit {
     'actions',
   ];
   heroes$: Observable<Hero[]>;
+  dataSource$: Observable<MatTableDataSource<Hero>>;
+  dataSource: MatTableDataSource<Hero>;
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -32,14 +36,29 @@ export class HeroesComponent implements OnInit, AfterViewInit {
     private snackBar: MatSnackBar
   ) {}
 
-  ngOnInit() {
-    this.heroes$ = this.heroService.getHeroes();
+  async ngOnInit() {
+    this.dataSource$ = this.heroService.getHeroes().pipe(
+      map(heroes => {
+        return new MatTableDataSource(heroes);
+      })
+    );
+
+    this.dataSource$.subscribe(dataSource => {
+      this.dataSource = dataSource;
+    });
   }
 
   ngAfterViewInit() {
-    this.sort.sortChange.subscribe(sort => {
-      console.log(sort);
-      this.heroes$ = this.heroService.getHeroes(sort);
+    this.sort.sortChange.subscribe(async sort => {
+      this.dataSource$ = this.heroService.getHeroes(sort).pipe(
+        map(heroes => {
+          return new MatTableDataSource(heroes);
+        })
+      );
+
+      this.dataSource$.subscribe(dataSource => {
+        this.dataSource.data = dataSource.data;
+      });
     });
   }
 
@@ -64,5 +83,10 @@ export class HeroesComponent implements OnInit, AfterViewInit {
       duration: 1000 * 3,
       panelClass: ['snackbar-success'],
     });
+  }
+
+  applyFilter($event: KeyboardEvent) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

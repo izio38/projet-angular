@@ -13,10 +13,16 @@
       Tout supprimer
     </button>
   </div>
+
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Romain">
+  </mat-form-field>
+
   <div class="example-table-container">
     <table
       mat-table
-      [dataSource]="heroes$"
+      [dataSource]="dataSource"
       class="example-table"
       matSort
       matSortActive="total"
